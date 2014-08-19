@@ -45,8 +45,10 @@ ThumbView::ThumbView(QWidget *parent) : QListView(parent)
 	connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(loadVisibleThumbs(int)));
 	connect(this->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), 
 				this, SLOT(handleSelectionChanged(QItemSelection)));
+//   	connect(this, SIGNAL(doubleClicked(const QModelIndex &)), 
+//				parent, SLOT(loadImagefromThumb(const QModelIndex &)));
    	connect(this, SIGNAL(doubleClicked(const QModelIndex &)), 
-				parent, SLOT(loadImagefromThumb(const QModelIndex &)));
+				parent, SLOT(loadImageDetected(const QModelIndex &)));
 
 	thumbsDir = new QDir();
 	fileFilters = new QStringList;

@@ -1,0 +1,605 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AppMgmtDialog	dialogs.cpp	/^AppMgmtDialog::AppMgmtDialog(QWidget *parent) : QDialog(parent)$/;"	f	class:AppMgmtDialog
+AppMgmtDialog	dialogs.h	/^class AppMgmtDialog : public QDialog$/;"	c
+AutoDetectDialog	dialogs.cpp	/^AutoDetectDialog::AutoDetectDialog(QWidget *parent) : QDialog(parent)$/;"	f	class:AutoDetectDialog
+AutoDetectDialog	dialogs.h	/^class AutoDetectDialog : public QDialog$/;"	c
+CentralWidgets	mainwindow.h	/^	enum CentralWidgets$/;"	g	class:Phototonic
+Classic	thumbview.h	/^		Classic,$/;"	e	enum:ThumbView::ThumbnailLayouts
+ColorsDialog	dialogs.cpp	/^ColorsDialog::ColorsDialog(QWidget *parent, ImageView *imageView_) : QDialog(parent)$/;"	f	class:ColorsDialog
+ColorsDialog	dialogs.h	/^class ColorsDialog : public QDialog$/;"	c
+Compact	thumbview.h	/^		Compact,$/;"	e	enum:ThumbView::ThumbnailLayouts
+CopyMoveToDialog	dialogs.cpp	/^CopyMoveToDialog::CopyMoveToDialog(QWidget *parent, QString thumbsPath) : QDialog(parent)$/;"	f	class:CopyMoveToDialog
+CopyMoveToDialog	dialogs.h	/^class CopyMoveToDialog : public QDialog$/;"	c
+CpMvDialog	dialogs.cpp	/^CpMvDialog::CpMvDialog(QWidget *parent) : QDialog(parent)$/;"	f	class:CpMvDialog
+CpMvDialog	dialogs.h	/^class CpMvDialog : public QDialog$/;"	c
+CropDialog	dialogs.cpp	/^CropDialog::CropDialog(QWidget *parent, ImageView *imageView_) : QDialog(parent)$/;"	f	class:CropDialog
+CropDialog	dialogs.h	/^class CropDialog : public QDialog$/;"	c
+DIALOGS_H	dialogs.h	20;"	d
+Disable	imageview.h	/^		Disable = 0,$/;"	e	enum:ImageView::ZoomMethods
+Disprop	imageview.h	/^		Disprop$/;"	e	enum:ImageView::ZoomMethods
+FSTree	thumbview.cpp	/^FSTree::FSTree(QWidget *parent) : QTreeView(parent)$/;"	f	class:FSTree
+FSTree	thumbview.h	/^class FSTree : public QTreeView$/;"	c
+FileNameRole	thumbview.h	/^		FileNameRole = Qt::UserRole + 1,$/;"	e	enum:ThumbView::UserRoles
+GData	global.cpp	/^namespace GData$/;"	n	file:
+GData	global.h	/^namespace GData$/;"	n
+GLOBAL_H	global.h	20;"	d
+Height	imageview.h	/^		Height,$/;"	e	enum:ImageView::ZoomMethods
+IMAGEVIEW_H	imageview.h	20;"	d
+INFOVIEW_H	infoview.h	20;"	d
+ImagePopUpMenu	imageview.h	/^	QMenu *ImagePopUpMenu;$/;"	m	class:ImageView
+ImageView	imageview.cpp	/^ImageView::ImageView(QWidget *parent) : QWidget(parent)$/;"	f	class:ImageView
+ImageView	imageview.h	/^class ImageView : public QWidget$/;"	c
+InfoView	infoview.cpp	/^InfoView::InfoView(QWidget *parent) : QTableView(parent)$/;"	f	class:InfoView
+InfoView	infoview.h	/^class InfoView : public QTableView$/;"	c
+KeyGrabLineEdit	dialogs.cpp	/^KeyGrabLineEdit::KeyGrabLineEdit(QWidget *parent, QComboBox *combo) : QLineEdit(parent)$/;"	f	class:KeyGrabLineEdit
+KeyGrabLineEdit	dialogs.h	/^class KeyGrabLineEdit : public QLineEdit$/;"	c
+LayDual	imageview.h	/^		LayDual,$/;"	e	enum:ImageView::MirrorLayouts
+LayNone	imageview.h	/^		LayNone = 0,$/;"	e	enum:ImageView::MirrorLayouts
+LayQuad	imageview.h	/^		LayQuad,$/;"	e	enum:ImageView::MirrorLayouts
+LayTriple	imageview.h	/^		LayTriple,$/;"	e	enum:ImageView::MirrorLayouts
+LayVDual	imageview.h	/^		LayVDual$/;"	e	enum:ImageView::MirrorLayouts
+LoadedRole	thumbview.h	/^		LoadedRole$/;"	e	enum:ThumbView::UserRoles
+MAINWINDOW_H	mainwindow.h	20;"	d
+MAX	imageview.cpp	28;"	d	file:
+MIN	imageview.cpp	29;"	d	file:
+MirrorLayouts	imageview.h	/^	enum MirrorLayouts$/;"	g	class:ImageView
+MirroringSubMenu	mainwindow.h	/^	QMenu *MirroringSubMenu;$/;"	m	class:Phototonic
+MoveDown	imageview.h	/^		MoveDown,$/;"	e	enum:ImageView::Movement
+MoveLeft	imageview.h	/^		MoveLeft,$/;"	e	enum:ImageView::Movement
+MoveRight	imageview.h	/^		MoveRight$/;"	e	enum:ImageView::Movement
+MoveUp	imageview.h	/^		MoveUp = 0,$/;"	e	enum:ImageView::Movement
+Movement	imageview.h	/^	enum Movement$/;"	g	class:ImageView
+NEW_IMAGE_NAME	imageview.cpp	26;"	d	file:
+Phototonic	mainwindow.cpp	/^Phototonic::Phototonic(QWidget *parent) : QMainWindow(parent)$/;"	f	class:Phototonic
+Phototonic	mainwindow.h	/^class Phototonic : public QMainWindow$/;"	c
+ROUND	imageview.cpp	27;"	d	file:
+SettingsDialog	dialogs.cpp	/^SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)$/;"	f	class:SettingsDialog
+SettingsDialog	dialogs.h	/^class SettingsDialog : public QDialog$/;"	c
+SlideShowTimer	mainwindow.h	/^	QTimer *SlideShowTimer;$/;"	m	class:Phototonic
+SortRole	thumbview.h	/^		SortRole,$/;"	e	enum:ThumbView::UserRoles
+Squares	thumbview.h	/^		Squares$/;"	e	enum:ThumbView::ThumbnailLayouts
+StartupDir	global.h	/^	enum StartupDir$/;"	g	namespace:GData
+THUMBVIEW_H	thumbview.h	20;"	d
+THUMB_SIZE_MAX	mainwindow.cpp	35;"	d	file:
+THUMB_SIZE_MIN	mainwindow.cpp	34;"	d	file:
+ThumbView	thumbview.cpp	/^ThumbView::ThumbView(QWidget *parent) : QListView(parent)$/;"	f	class:ThumbView
+ThumbView	thumbview.h	/^class ThumbView : public QListView$/;"	c
+ThumbnailLayouts	thumbview.h	/^	enum ThumbnailLayouts$/;"	g	class:ThumbView
+UserRoles	thumbview.h	/^	enum UserRoles$/;"	g	class:ThumbView
+Width	imageview.h	/^		Width,$/;"	e	enum:ImageView::ZoomMethods
+WidthNHeight	imageview.h	/^		WidthNHeight,$/;"	e	enum:ImageView::ZoomMethods
+ZoomMethods	imageview.h	/^	enum ZoomMethods$/;"	g	class:ImageView
+abort	dialogs.cpp	/^void CpMvDialog::abort()$/;"	f	class:CpMvDialog
+abort	dialogs.cpp	/^void SettingsDialog::abort()$/;"	f	class:SettingsDialog
+abort	thumbview.cpp	/^void ThumbView::abort()$/;"	f	class:ThumbView
+abortOp	dialogs.h	/^	bool abortOp;$/;"	m	class:CpMvDialog
+abortOp	thumbview.h	/^	bool abortOp;$/;"	m	class:ThumbView
+about	mainwindow.cpp	/^void Phototonic::about()$/;"	f	class:Phototonic
+aboutAction	mainwindow.h	/^	QAction *aboutAction;$/;"	m	class:Phototonic
+actClassic	mainwindow.h	/^	QAction *actClassic;$/;"	m	class:Phototonic
+actCompact	mainwindow.h	/^	QAction *actCompact;$/;"	m	class:Phototonic
+actName	mainwindow.h	/^	QAction *actName;$/;"	m	class:Phototonic
+actReverse	mainwindow.h	/^	QAction *actReverse;$/;"	m	class:Phototonic
+actShowHidden	mainwindow.h	/^	QAction *actShowHidden;$/;"	m	class:Phototonic
+actSize	mainwindow.h	/^	QAction *actSize;$/;"	m	class:Phototonic
+actSquarish	mainwindow.h	/^	QAction *actSquarish;$/;"	m	class:Phototonic
+actTime	mainwindow.h	/^	QAction *actTime;$/;"	m	class:Phototonic
+actType	mainwindow.h	/^	QAction *actType;$/;"	m	class:Phototonic
+actionKeys	global.cpp	/^	QMap<QString, QAction *> actionKeys;$/;"	m	namespace:GData	file:
+add	dialogs.cpp	/^void AppMgmtDialog::add()$/;"	f	class:AppMgmtDialog
+add	dialogs.cpp	/^void CopyMoveToDialog::add()$/;"	f	class:CopyMoveToDialog
+addEntry	infoview.cpp	/^void InfoView::addEntry(QString &key, QString &value)$/;"	f	class:InfoView
+addMenuSeparator	mainwindow.cpp	/^void Phototonic::addMenuSeparator(QWidget *widget)$/;"	f	class:Phototonic
+addTableModelItem	dialogs.cpp	/^void AppMgmtDialog::addTableModelItem(QStandardItemModel *model, QString &key, QString &val)$/;"	f	class:AppMgmtDialog
+addThumb	thumbview.cpp	/^void ThumbView::addThumb(QString &imageFullPath)$/;"	f	class:ThumbView
+anim	imageview.h	/^	QMovie *anim;$/;"	m	class:ImageView
+appSettings	global.cpp	/^	QSettings *appSettings;$/;"	m	namespace:GData	file:
+applyColors	dialogs.cpp	/^void ColorsDialog::applyColors(int)$/;"	f	class:ColorsDialog
+applyCrop	dialogs.cpp	/^void CropDialog::applyCrop(int)$/;"	f	class:CropDialog
+appsTable	dialogs.h	/^	QTableView *appsTable;$/;"	m	class:AppMgmtDialog
+appsTableModel	dialogs.h	/^	QStandardItemModel *appsTableModel;$/;"	m	class:AppMgmtDialog
+autoDetect	dialogs.cpp	/^void AutoDetectDialog::autoDetect()$/;"	f	class:AutoDetectDialog
+autoDetectAct	mainwindow.h	/^	QAction *autoDetectAct;$/;"	m	class:Phototonic
+autoDetectButton	dialogs.h	/^	QPushButton *autoDetectButton;$/;"	m	class:AutoDetectDialog
+autoRename	dialogs.cpp	/^static QString autoRename(QString &destDir, QString &currFile)$/;"	f	file:
+backgroundColor	global.cpp	/^	QColor backgroundColor;$/;"	m	namespace:GData	file:
+backgroundColorButton	dialogs.h	/^	QToolButton *backgroundColorButton;$/;"	m	class:SettingsDialog
+bgColor	dialogs.h	/^	QColor bgColor;$/;"	m	class:SettingsDialog
+blueB	dialogs.h	/^	QCheckBox *blueB;$/;"	m	class:ColorsDialog
+bottomSpin	dialogs.h	/^	QSpinBox *bottomSpin;$/;"	m	class:CropDialog
+bound0_255	imageview.cpp	/^static inline int bound0_255(int val)$/;"	f	file:
+calcZoom	imageview.cpp	/^static inline int calcZoom(int size)$/;"	f	file:
+cancelButton	dialogs.h	/^	QPushButton *cancelButton;$/;"	m	class:CpMvDialog
+centerImage	imageview.cpp	/^void ImageView::centerImage(QSize &imgSize)$/;"	f	class:ImageView
+changeActionsBySelection	mainwindow.cpp	/^void Phototonic::changeActionsBySelection(const QItemSelection&, const QItemSelection&)$/;"	f	class:Phototonic
+checkDirState	mainwindow.cpp	/^void Phototonic::checkDirState(const QModelIndex &, int, int)$/;"	f	class:Phototonic
+chooseAppAct	mainwindow.h	/^	QAction *chooseAppAct;$/;"	m	class:Phototonic
+chooseExternalApp	mainwindow.cpp	/^void Phototonic::chooseExternalApp()$/;"	f	class:Phototonic
+cleanupExternalApp	mainwindow.cpp	/^void Phototonic::cleanupExternalApp()$/;"	f	class:Phototonic
+clear	infoview.cpp	/^void InfoView::clear()$/;"	f	class:InfoView
+clearShortcut	dialogs.cpp	/^void KeyGrabLineEdit::clearShortcut()$/;"	f	class:KeyGrabLineEdit
+clearThumbsFilter	mainwindow.cpp	/^void Phototonic::clearThumbsFilter()$/;"	f	class:Phototonic
+cliFileName	mainwindow.h	/^	QString cliFileName;$/;"	m	class:Phototonic
+cliImageLoaded	mainwindow.h	/^	bool cliImageLoaded;$/;"	m	class:Phototonic
+closeEvent	mainwindow.cpp	/^void Phototonic::closeEvent(QCloseEvent *event)$/;"	f	class:Phototonic
+closeImage	mainwindow.cpp	/^void Phototonic::closeImage()$/;"	f	class:Phototonic
+closeImageAct	mainwindow.h	/^	QAction *closeImageAct;$/;"	m	class:Phototonic
+colThumbButton	dialogs.h	/^    QToolButton *colThumbButton;$/;"	m	class:SettingsDialog
+colThumbTextButton	dialogs.h	/^    QToolButton *colThumbTextButton;$/;"	m	class:SettingsDialog
+colorize	imageview.cpp	/^void ImageView::colorize()$/;"	f	class:ImageView
+colorizeCb	dialogs.h	/^	QCheckBox *colorizeCb;$/;"	m	class:ColorsDialog
+colorizeEnabled	global.cpp	/^	bool colorizeEnabled;$/;"	m	namespace:GData	file:
+colorsAct	mainwindow.h	/^	QAction *colorsAct;$/;"	m	class:Phototonic
+compactLayoutCb	dialogs.h	/^	QCheckBox *compactLayoutCb;$/;"	m	class:SettingsDialog
+contextMenuEvent	imageview.cpp	/^void ImageView::contextMenuEvent(QContextMenuEvent *)$/;"	f	class:ImageView
+coordinate_transformation	dialogs.cpp	/^char AutoDetectDialog::coordinate_transformation(float x,float y)$/;"	f	class:AutoDetectDialog
+copy	dialogs.cpp	/^void CopyMoveToDialog::copy()$/;"	f	class:CopyMoveToDialog
+copyAction	infoview.h	/^	QAction *copyAction;$/;"	m	class:InfoView
+copyAction	mainwindow.h	/^	QAction *copyAction;$/;"	m	class:Phototonic
+copyCutCount	mainwindow.h	/^	int copyCutCount;$/;"	m	class:Phototonic
+copyCutFileList	global.cpp	/^	QStringList copyCutFileList;$/;"	m	namespace:GData	file:
+copyCutIdxList	global.cpp	/^	QModelIndexList copyCutIdxList;$/;"	m	namespace:GData	file:
+copyEntry	infoview.cpp	/^void InfoView::copyEntry()$/;"	f	class:InfoView
+copyImage	imageview.cpp	/^void ImageView::copyImage()$/;"	f	class:ImageView
+copyImageAction	mainwindow.h	/^	QAction *copyImageAction;$/;"	m	class:Phototonic
+copyMoveAction	mainwindow.h	/^	QAction *copyMoveAction;$/;"	m	class:Phototonic
+copyMoveImages	mainwindow.cpp	/^void Phototonic::copyMoveImages()$/;"	f	class:Phototonic
+copyMoveToDialog	mainwindow.h	/^	CopyMoveToDialog *copyMoveToDialog;$/;"	m	class:Phototonic
+copyMoveToPaths	global.cpp	/^	QSet<QString> copyMoveToPaths;$/;"	m	namespace:GData	file:
+copyOp	dialogs.h	/^	bool copyOp;$/;"	m	class:CopyMoveToDialog
+copyOp	global.cpp	/^	bool copyOp;$/;"	m	namespace:GData	file:
+copyOrCutThumbs	mainwindow.cpp	/^void Phototonic::copyOrCutThumbs(bool copy)$/;"	f	class:Phototonic
+copyOrMove	dialogs.cpp	/^void CopyMoveToDialog::copyOrMove(bool copy)$/;"	f	class:CopyMoveToDialog
+copyThumbs	mainwindow.cpp	/^void Phototonic::copyThumbs()$/;"	f	class:Phototonic
+cpMvFile	dialogs.cpp	/^int cpMvFile(bool isCopy, QString &srcFile, QString &srcPath, QString &dstPath, QString &dstDir)$/;"	f
+createActions	mainwindow.cpp	/^void Phototonic::createActions()$/;"	f	class:Phototonic
+createDirAction	mainwindow.h	/^	QAction *createDirAction;$/;"	m	class:Phototonic
+createFSTree	mainwindow.cpp	/^void Phototonic::createFSTree()$/;"	f	class:Phototonic
+createImageView	mainwindow.cpp	/^void Phototonic::createImageView()$/;"	f	class:Phototonic
+createMenus	mainwindow.cpp	/^void Phototonic::createMenus()$/;"	f	class:Phototonic
+createStatusBar	mainwindow.cpp	/^void Phototonic::createStatusBar()$/;"	f	class:Phototonic
+createSubDirectory	mainwindow.cpp	/^void Phototonic::createSubDirectory()$/;"	f	class:Phototonic
+createThumbView	mainwindow.cpp	/^void Phototonic::createThumbView()$/;"	f	class:Phototonic
+createToolBars	mainwindow.cpp	/^void Phototonic::createToolBars()$/;"	f	class:Phototonic
+cropAct	mainwindow.h	/^	QAction *cropAct;$/;"	m	class:Phototonic
+cropHeight	global.cpp	/^	int cropHeight;$/;"	m	namespace:GData	file:
+cropImage	mainwindow.cpp	/^void Phototonic::cropImage()$/;"	f	class:Phototonic
+cropLeft	global.cpp	/^	int cropLeft;$/;"	m	namespace:GData	file:
+cropTop	global.cpp	/^	int cropTop;$/;"	m	namespace:GData	file:
+cropWidth	global.cpp	/^	int cropWidth;$/;"	m	namespace:GData	file:
+currentHistoryIdx	mainwindow.h	/^	int currentHistoryIdx;$/;"	m	class:Phototonic
+currentImageFullPath	imageview.h	/^	QString currentImageFullPath;$/;"	m	class:ImageView
+currentIndex	thumbview.h	/^	QModelIndex currentIndex;$/;"	m	class:ThumbView
+currentPath	dialogs.h	/^	QString currentPath;$/;"	m	class:CopyMoveToDialog
+currentRow	thumbview.h	/^	int currentRow;$/;"	m	class:ThumbView
+currentViewDir	thumbview.h	/^	QString currentViewDir;$/;"	m	class:ThumbView
+cursorIsHidden	imageview.h	/^	bool cursorIsHidden;$/;"	m	class:ImageView
+cutAction	mainwindow.h	/^	QAction *cutAction;$/;"	m	class:Phototonic
+cutThumbs	mainwindow.cpp	/^void Phototonic::cutThumbs()$/;"	f	class:Phototonic
+defaultDir	global.h	/^		defaultDir = 0,$/;"	e	enum:GData::StartupDir
+defaultSaveQuality	global.cpp	/^	int defaultSaveQuality;$/;"	m	namespace:GData	file:
+deleteAction	mainwindow.h	/^	QAction *deleteAction;$/;"	m	class:Phototonic
+deleteDir	mainwindow.cpp	/^void Phototonic::deleteDir()$/;"	f	class:Phototonic
+deleteOp	mainwindow.cpp	/^void Phototonic::deleteOp()$/;"	f	class:Phototonic
+deleteViewerImage	mainwindow.cpp	/^void Phototonic::deleteViewerImage()$/;"	f	class:Phototonic
+dialogLastX	global.cpp	/^	int dialogLastX;$/;"	m	namespace:GData	file:
+dialogLastY	global.cpp	/^	int dialogLastY;$/;"	m	namespace:GData	file:
+dirInfo	dialogs.h	/^	QFileInfo *dirInfo;$/;"	m	class:CpMvDialog
+displayImage	imageview.h	/^	QImage displayImage;$/;"	m	class:ImageView
+displayPixmap	imageview.h	/^	QPixmap displayPixmap;$/;"	m	class:ImageView
+dndOrigSelection	thumbview.h	/^	QModelIndex dndOrigSelection;$/;"	m	class:FSTree
+dragEnterEvent	thumbview.cpp	/^void FSTree::dragEnterEvent(QDragEnterEvent *event)$/;"	f	class:FSTree
+dragMoveEvent	thumbview.cpp	/^void FSTree::dragMoveEvent(QDragMoveEvent *event)$/;"	f	class:FSTree
+drawPoint	dialogs.cpp	/^void myLabel::drawPoint(float x, float y)$/;"	f	class:myLabel
+dropEvent	thumbview.cpp	/^void FSTree::dropEvent(QDropEvent *event)$/;"	f	class:FSTree
+dropOp	mainwindow.cpp	/^void Phototonic::dropOp(Qt::KeyboardModifiers keyMods, bool dirOp, QString cpMvDirPath)$/;"	f	class:Phototonic
+eLocEdit	dialogs.h	/^	QLineEdit *eLocEdit;$/;"	m	class:AutoDetectDialog
+eLocLabel	dialogs.h	/^	QLabel *eLocLabel;$/;"	m	class:AutoDetectDialog
+editMenu	mainwindow.h	/^	QMenu *editMenu;$/;"	m	class:Phototonic
+editToolBar	mainwindow.h	/^	QToolBar *editToolBar;$/;"	m	class:Phototonic
+editToolBarVisible	mainwindow.h	/^	bool editToolBarVisible;$/;"	m	class:Phototonic
+emptyImg	thumbview.h	/^	QImage emptyImg;$/;"	m	class:ThumbView
+enableAnimCb	dialogs.h	/^	QCheckBox *enableAnimCb;$/;"	m	class:SettingsDialog
+enableAnimations	global.cpp	/^	bool enableAnimations;$/;"	m	namespace:GData	file:
+enableColorize	dialogs.cpp	/^void ColorsDialog::enableColorize(int state)$/;"	f	class:ColorsDialog
+enableExifCb	dialogs.h	/^	QCheckBox *enableExifCb;$/;"	m	class:SettingsDialog
+enableHueSat	dialogs.cpp	/^void ColorsDialog::enableHueSat(int state)$/;"	f	class:ColorsDialog
+endTimeEdit	dialogs.h	/^	QLineEdit *endTimeEdit;$/;"	m	class:AutoDetectDialog
+endTimeLabel	dialogs.h	/^	QLabel *endTimeLabel;$/;"	m	class:AutoDetectDialog
+evLocEdit	dialogs.h	/^	QLineEdit *evLocEdit;$/;"	m	class:AutoDetectDialog
+evLocLabel	dialogs.h	/^	QLabel *evLocLabel;$/;"	m	class:AutoDetectDialog
+event	mainwindow.cpp	/^bool Phototonic::event(QEvent *event)$/;"	f	class:Phototonic
+exec	dialogs.cpp	/^void CpMvDialog::exec(ThumbView *thumbView, QString &destDir, bool pasteInCurrDir)$/;"	f	class:CpMvDialog
+exifRotationEnabled	global.cpp	/^	bool exifRotationEnabled;$/;"	m	namespace:GData	file:
+exitAction	mainwindow.h	/^	QAction *exitAction;$/;"	m	class:Phototonic
+exitCliCb	dialogs.h	/^	QCheckBox *exitCliCb;$/;"	m	class:SettingsDialog
+exitInsteadOfClose	global.cpp	/^	bool exitInsteadOfClose;$/;"	m	namespace:GData	file:
+externalApps	global.cpp	/^	QMap<QString, QString> externalApps;$/;"	m	namespace:GData	file:
+fileFilters	thumbview.h	/^	QStringList *fileFilters;$/;"	m	class:ThumbView
+fileMenu	mainwindow.h	/^	QMenu *fileMenu;$/;"	m	class:Phototonic
+filterBar	mainwindow.h	/^	QLineEdit *filterBar;$/;"	m	class:Phototonic
+filterStr	thumbview.h	/^	QString filterStr;$/;"	m	class:ThumbView
+firstImageAction	mainwindow.h	/^	QAction *firstImageAction;$/;"	m	class:Phototonic
+fitLargeRadios	dialogs.h	/^	QRadioButton *fitLargeRadios[nZoomRadios];$/;"	m	class:SettingsDialog
+fitSmallRadios	dialogs.h	/^	QRadioButton *fitSmallRadios[nZoomRadios];$/;"	m	class:SettingsDialog
+flipH	global.cpp	/^	bool flipH;$/;"	m	namespace:GData	file:
+flipHAct	mainwindow.h	/^	QAction *flipHAct;$/;"	m	class:Phototonic
+flipHoriz	mainwindow.cpp	/^void Phototonic::flipHoriz()$/;"	f	class:Phototonic
+flipV	global.cpp	/^	bool flipV;$/;"	m	namespace:GData	file:
+flipVAct	mainwindow.h	/^	QAction *flipVAct;$/;"	m	class:Phototonic
+flipVert	mainwindow.cpp	/^void Phototonic::flipVert()$/;"	f	class:Phototonic
+freeRotateLeft	mainwindow.cpp	/^void Phototonic::freeRotateLeft()$/;"	f	class:Phototonic
+freeRotateLeftAct	mainwindow.h	/^	QAction *freeRotateLeftAct;$/;"	m	class:Phototonic
+freeRotateRight	mainwindow.cpp	/^void Phototonic::freeRotateRight()$/;"	f	class:Phototonic
+freeRotateRightAct	mainwindow.h	/^	QAction *freeRotateRightAct;$/;"	m	class:Phototonic
+fsDock	mainwindow.h	/^	QDockWidget *fsDock;$/;"	m	class:Phototonic
+fsDockVisible	mainwindow.h	/^	bool fsDockVisible;$/;"	m	class:Phototonic
+fsModel	mainwindow.h	/^	QFileSystemModel *fsModel;$/;"	m	class:Phototonic
+fsTree	mainwindow.h	/^	FSTree *fsTree;$/;"	m	class:Phototonic
+fullScreenAct	mainwindow.h	/^	QAction *fullScreenAct;$/;"	m	class:Phototonic
+getCurrentIndex	thumbview.cpp	/^QModelIndex FSTree::getCurrentIndex()$/;"	f	class:FSTree
+getCurrentRow	thumbview.cpp	/^int ThumbView::getCurrentRow()$/;"	f	class:ThumbView
+getExifOrientation	imageview.cpp	/^long ImageView::getExifOrientation()$/;"	f	class:ImageView
+getFirstVisibleThumb	thumbview.cpp	/^int ThumbView::getFirstVisibleThumb()$/;"	f	class:ThumbView
+getHeightByWidth	imageview.cpp	/^static unsigned int getHeightByWidth(int imgWidth, int imgHeight, int newWidth)$/;"	f	file:
+getImageHeightPreCropped	imageview.cpp	/^int ImageView::getImageHeightPreCropped()$/;"	f	class:ImageView
+getImageWidthPreCropped	imageview.cpp	/^int ImageView::getImageWidthPreCropped()$/;"	f	class:ImageView
+getLastRow	thumbview.cpp	/^int ThumbView::getLastRow()$/;"	f	class:ThumbView
+getLastVisibleThumb	thumbview.cpp	/^int ThumbView::getLastVisibleThumb()$/;"	f	class:ThumbView
+getNextRow	thumbview.cpp	/^int ThumbView::getNextRow()$/;"	f	class:ThumbView
+getPrevRow	thumbview.cpp	/^int ThumbView::getPrevRow()$/;"	f	class:ThumbView
+getRandomRow	thumbview.cpp	/^int ThumbView::getRandomRow()$/;"	f	class:ThumbView
+getSelectedPath	mainwindow.cpp	/^QString Phototonic::getSelectedPath()$/;"	f	class:Phototonic
+getSingleSelectionFilename	thumbview.cpp	/^QString ThumbView::getSingleSelectionFilename()$/;"	f	class:ThumbView
+getWidthByHeight	imageview.cpp	/^static unsigned int getWidthByHeight(int imgHeight, int imgWidth, int newHeight)$/;"	f	file:
+goBack	mainwindow.cpp	/^void Phototonic::goBack()$/;"	f	class:Phototonic
+goBackAction	mainwindow.h	/^	QAction *goBackAction;$/;"	m	class:Phototonic
+goBottom	mainwindow.cpp	/^void Phototonic::goBottom()$/;"	f	class:Phototonic
+goForward	mainwindow.cpp	/^void Phototonic::goForward()$/;"	f	class:Phototonic
+goFrwdAction	mainwindow.h	/^	QAction *goFrwdAction;$/;"	m	class:Phototonic
+goHome	mainwindow.cpp	/^void Phototonic::goHome()$/;"	f	class:Phototonic
+goHomeAction	mainwindow.h	/^	QAction *goHomeAction;$/;"	m	class:Phototonic
+goMenu	mainwindow.h	/^	QMenu *goMenu;$/;"	m	class:Phototonic
+goPathBarDir	mainwindow.cpp	/^void Phototonic::goPathBarDir()$/;"	f	class:Phototonic
+goSelectedDir	mainwindow.cpp	/^void Phototonic::goSelectedDir(const QModelIndex &idx)$/;"	f	class:Phototonic
+goTo	mainwindow.cpp	/^void Phototonic::goTo(QString path)$/;"	f	class:Phototonic
+goToolBar	mainwindow.h	/^	QToolBar *goToolBar;$/;"	m	class:Phototonic
+goToolBarVisible	mainwindow.h	/^	bool goToolBarVisible;$/;"	m	class:Phototonic
+goTop	mainwindow.cpp	/^void Phototonic::goTop()$/;"	f	class:Phototonic
+goUp	mainwindow.cpp	/^void Phototonic::goUp()$/;"	f	class:Phototonic
+goUpAction	mainwindow.h	/^	QAction *goUpAction;$/;"	m	class:Phototonic
+greenB	dialogs.h	/^	QCheckBox *greenB;$/;"	m	class:ColorsDialog
+handleSelectionChanged	thumbview.cpp	/^void ThumbView::handleSelectionChanged(const QItemSelection&)$/;"	f	class:ThumbView
+handleStartupArgs	mainwindow.cpp	/^void Phototonic::handleStartupArgs()$/;"	f	class:Phototonic
+helpMenu	mainwindow.h	/^	QMenu *helpMenu;$/;"	m	class:Phototonic
+hideMessage	imageview.cpp	/^void ImageView::hideMessage()$/;"	f	class:ImageView
+hslToRgb	imageview.cpp	/^void hslToRgb(double h, double s, double l,$/;"	f
+hslValue	imageview.cpp	/^static inline int hslValue(double n1, double n2, double hue)$/;"	f	file:
+hueBlueChannel	global.cpp	/^	bool hueBlueChannel;$/;"	m	namespace:GData	file:
+hueGreenChannel	global.cpp	/^	bool hueGreenChannel;$/;"	m	namespace:GData	file:
+hueRedChannel	global.cpp	/^	bool hueRedChannel;$/;"	m	namespace:GData	file:
+hueSatEnabled	global.cpp	/^	bool hueSatEnabled;$/;"	m	namespace:GData	file:
+hueSatEnabledCb	dialogs.h	/^	QCheckBox *hueSatEnabledCb;$/;"	m	class:ColorsDialog
+hueSlide	dialogs.h	/^	QSlider *hueSlide;$/;"	m	class:ColorsDialog
+hueVal	global.cpp	/^	int hueVal;$/;"	m	namespace:GData	file:
+iiDock	mainwindow.h	/^	QDockWidget *iiDock;$/;"	m	class:Phototonic
+iiDockVisible	mainwindow.h	/^	bool iiDockVisible;$/;"	m	class:Phototonic
+imageDetect	dialogs.cpp	/^void AutoDetectDialog::imageDetect(string fileName)$/;"	f	class:AutoDetectDialog
+imageInfoReader	thumbview.h	/^	QImageReader imageInfoReader;$/;"	m	class:ThumbView
+imageLabel	imageview.h	/^	QLabel *imageLabel;$/;"	m	class:ImageView
+imageNameAction	mainwindow.h	/^	QAction *imageNameAction;$/;"	m	class:Phototonic
+imageReader	imageview.h	/^	QImageReader imageReader;$/;"	m	class:ImageView
+imageView	dialogs.h	/^	ImageView *imageView;$/;"	m	class:ColorsDialog
+imageView	dialogs.h	/^	ImageView *imageView;$/;"	m	class:CropDialog
+imageView	mainwindow.h	/^	ImageView *imageView;$/;"	m	class:Phototonic
+imageViewIdx	mainwindow.h	/^		imageViewIdx$/;"	e	enum:Phototonic::CentralWidgets
+imageZoomFactor	global.cpp	/^	float imageZoomFactor;$/;"	m	namespace:GData	file:
+includeSubFolders	global.cpp	/^	bool includeSubFolders;$/;"	m	namespace:GData	file:
+infoMenu	infoview.h	/^	QMenu *infoMenu;$/;"	m	class:InfoView
+infoModel	infoview.h	/^	QStandardItemModel *infoModel;$/;"	m	class:InfoView
+infoView	thumbview.h	/^	InfoView *infoView;$/;"	m	class:ThumbView
+initComplete	mainwindow.h	/^	bool initComplete;$/;"	m	class:Phototonic
+initThumbs	thumbview.cpp	/^void ThumbView::initThumbs()$/;"	f	class:ThumbView
+invertSelection	thumbview.cpp	/^void ThumbView::invertSelection()$/;"	f	class:ThumbView
+invertSelectionAct	mainwindow.h	/^	QAction *invertSelectionAct;$/;"	m	class:Phototonic
+isAnimation	imageview.h	/^	bool isAnimation;$/;"	m	class:ImageView
+isBusy	mainwindow.h	/^	bool isBusy()$/;"	f	class:Phototonic
+isFullScreen	global.cpp	/^	bool isFullScreen;$/;"	m	namespace:GData	file:
+isNeedScroll	thumbview.h	/^	bool isNeedScroll;$/;"	m	class:ThumbView
+isNewImage	imageview.cpp	/^bool ImageView::isNewImage()$/;"	f	class:ImageView
+isThumbVisible	thumbview.cpp	/^bool ThumbView::isThumbVisible(QModelIndex idx)$/;"	f	class:ThumbView
+isValidPath	mainwindow.cpp	/^bool Phototonic::isValidPath(QString &path)$/;"	f	class:Phototonic
+justClose	dialogs.cpp	/^void CopyMoveToDialog::justClose()$/;"	f	class:CopyMoveToDialog
+keepTransform	global.cpp	/^	bool keepTransform;$/;"	m	namespace:GData	file:
+keepTransformAct	mainwindow.h	/^	QAction *keepTransformAct;$/;"	m	class:Phototonic
+keepTransformClicked	mainwindow.cpp	/^void Phototonic::keepTransformClicked()$/;"	f	class:Phototonic
+keepZoom	mainwindow.cpp	/^void Phototonic::keepZoom()$/;"	f	class:Phototonic
+keepZoomAct	mainwindow.h	/^	QAction *keepZoomAct;$/;"	m	class:Phototonic
+keepZoomFactor	global.cpp	/^	bool keepZoomFactor;$/;"	m	namespace:GData	file:
+keyLine	dialogs.h	/^	KeyGrabLineEdit *keyLine;$/;"	m	class:SettingsDialog
+keyMoveEvent	imageview.cpp	/^void ImageView::keyMoveEvent(int direction)$/;"	f	class:ImageView
+keyPressEvent	dialogs.cpp	/^void KeyGrabLineEdit::keyPressEvent(QKeyEvent *e)$/;"	f	class:KeyGrabLineEdit
+keysCombo	dialogs.h	/^	QComboBox *keysCombo;$/;"	m	class:KeyGrabLineEdit
+lastImageAction	mainwindow.h	/^	QAction *lastImageAction;$/;"	m	class:Phototonic
+layoutX	imageview.h	/^	int layoutX;$/;"	m	class:ImageView
+layoutY	imageview.h	/^	int layoutY;$/;"	m	class:ImageView
+leftSpin	dialogs.h	/^	QSpinBox *leftSpin;$/;"	m	class:CropDialog
+lightnessSlide	dialogs.h	/^	QSlider *lightnessSlide;$/;"	m	class:ColorsDialog
+lightnessVal	global.cpp	/^	int lightnessVal;$/;"	m	namespace:GData	file:
+load	thumbview.cpp	/^void ThumbView::load(QString &cliImageName)$/;"	f	class:ThumbView
+loadFirstImage	mainwindow.cpp	/^void Phototonic::loadFirstImage()$/;"	f	class:Phototonic
+loadImage	imageview.cpp	/^void ImageView::loadImage(QString &imageFileName)$/;"	f	class:ImageView
+loadImageDetected	mainwindow.cpp	/^void Phototonic::loadImageDetected(const QModelIndex &idx)$/;"	f	class:Phototonic
+loadImageFile	mainwindow.cpp	/^void Phototonic::loadImageFile(QString imageFileName)$/;"	f	class:Phototonic
+loadImagefromCli	mainwindow.cpp	/^void Phototonic::loadImagefromCli()$/;"	f	class:Phototonic
+loadImagefromThumb	mainwindow.cpp	/^void Phototonic::loadImagefromThumb(const QModelIndex &idx)$/;"	f	class:Phototonic
+loadLastImage	mainwindow.cpp	/^void Phototonic::loadLastImage()$/;"	f	class:Phototonic
+loadNextImage	mainwindow.cpp	/^void Phototonic::loadNextImage()$/;"	f	class:Phototonic
+loadPrevImage	mainwindow.cpp	/^void Phototonic::loadPrevImage()$/;"	f	class:Phototonic
+loadRandomImage	mainwindow.cpp	/^void Phototonic::loadRandomImage()$/;"	f	class:Phototonic
+loadShortcuts	mainwindow.cpp	/^void Phototonic::loadShortcuts()$/;"	f	class:Phototonic
+loadThumbsRange	thumbview.cpp	/^void ThumbView::loadThumbsRange()$/;"	f	class:ThumbView
+loadVisibleThumbs	thumbview.cpp	/^void ThumbView::loadVisibleThumbs(int scrollBarValue)$/;"	f	class:ThumbView
+locMenu	mainwindow.h	/^	QMenu *locMenu;$/;"	m	class:Phototonic
+main	main.cpp	/^int main(int argc, char *argv[])$/;"	f
+mainWindow	imageview.h	/^	QWidget *mainWindow;$/;"	m	class:ImageView
+mainWindow	thumbview.h	/^	QWidget *mainWindow;$/;"	m	class:ThumbView
+manageDir	mainwindow.cpp	/^void Phototonic::manageDir()$/;"	f	class:Phototonic
+manageDirAction	mainwindow.h	/^	QAction *manageDirAction;$/;"	m	class:Phototonic
+mirror	imageview.cpp	/^void ImageView::mirror()$/;"	f	class:ImageView
+mirrorDisabledAct	mainwindow.h	/^	QAction *mirrorDisabledAct;$/;"	m	class:Phototonic
+mirrorDualAct	mainwindow.h	/^	QAction *mirrorDualAct;$/;"	m	class:Phototonic
+mirrorImage	imageview.h	/^	QImage mirrorImage;$/;"	m	class:ImageView
+mirrorLayout	imageview.h	/^	int mirrorLayout;$/;"	m	class:ImageView
+mirrorQuadAct	mainwindow.h	/^	QAction *mirrorQuadAct;$/;"	m	class:Phototonic
+mirrorSubMenuAct	mainwindow.h	/^	QAction *mirrorSubMenuAct;$/;"	m	class:Phototonic
+mirrorTripleAct	mainwindow.h	/^	QAction *mirrorTripleAct;$/;"	m	class:Phototonic
+mirrorVDualAct	mainwindow.h	/^	QAction *mirrorVDualAct;$/;"	m	class:Phototonic
+mirroringGroup	mainwindow.h	/^	QActionGroup *mirroringGroup;$/;"	m	class:Phototonic
+monitorCursorState	imageview.cpp	/^void ImageView::monitorCursorState()$/;"	f	class:ImageView
+mouseDoubleClickEvent	mainwindow.cpp	/^void Phototonic::mouseDoubleClickEvent(QMouseEvent *event)$/;"	f	class:Phototonic
+mouseMoveEvent	imageview.cpp	/^void ImageView::mouseMoveEvent(QMouseEvent *event)$/;"	f	class:ImageView
+mouseMovementTimer	imageview.h	/^	QTimer *mouseMovementTimer;$/;"	m	class:ImageView
+mousePressEvent	mainwindow.cpp	/^void Phototonic::mousePressEvent(QMouseEvent *event)$/;"	f	class:Phototonic
+mousePressEvent	thumbview.cpp	/^void ThumbView::mousePressEvent(QMouseEvent *event)$/;"	f	class:ThumbView
+mouseReleaseEvent	mainwindow.cpp	/^void Phototonic::mouseReleaseEvent(QMouseEvent *event)$/;"	f	class:Phototonic
+mouseX	imageview.h	/^	int mouseX;$/;"	m	class:ImageView
+mouseY	imageview.h	/^	int mouseY;$/;"	m	class:ImageView
+move	dialogs.cpp	/^void CopyMoveToDialog::move()$/;"	f	class:CopyMoveToDialog
+moveDown	mainwindow.cpp	/^void Phototonic::moveDown()$/;"	f	class:Phototonic
+moveDownAct	mainwindow.h	/^	QAction *moveDownAct;$/;"	m	class:Phototonic
+moveImageLocked	imageview.h	/^	bool moveImageLocked;$/;"	m	class:ImageView
+moveLeft	mainwindow.cpp	/^void Phototonic::moveLeft()$/;"	f	class:Phototonic
+moveLeftAct	mainwindow.h	/^	QAction *moveLeftAct;$/;"	m	class:Phototonic
+moveRight	mainwindow.cpp	/^void Phototonic::moveRight()$/;"	f	class:Phototonic
+moveRightAct	mainwindow.h	/^	QAction *moveRightAct;$/;"	m	class:Phototonic
+moveUp	mainwindow.cpp	/^void Phototonic::moveUp()$/;"	f	class:Phototonic
+moveUpAct	mainwindow.h	/^	QAction *moveUpAct;$/;"	m	class:Phototonic
+myLabel	dialogs.cpp	/^myLabel::myLabel()$/;"	f	class:myLabel
+myLabel	dialogs.h	/^class myLabel : public QWidget$/;"	c
+nZoomRadios	dialogs.h	/^	static int const nZoomRadios = 5;$/;"	m	class:SettingsDialog
+needHistoryRecord	mainwindow.h	/^	bool needHistoryRecord;$/;"	m	class:Phototonic
+needThumbsRefresh	mainwindow.h	/^	bool needThumbsRefresh;$/;"	m	class:Phototonic
+newImage	imageview.h	/^	bool newImage;$/;"	m	class:ImageView
+newImage	mainwindow.cpp	/^void Phototonic::newImage()$/;"	f	class:Phototonic
+newImageAction	mainwindow.h	/^	QAction *newImageAction;$/;"	m	class:Phototonic
+newIndex	thumbview.h	/^	int newIndex;$/;"	m	class:ThumbView
+nextImageAction	mainwindow.h	/^	QAction *nextImageAction;$/;"	m	class:Phototonic
+nfiles	dialogs.h	/^	int nfiles;$/;"	m	class:CpMvDialog
+noEnlargeSmallThumb	global.cpp	/^	bool noEnlargeSmallThumb;$/;"	m	namespace:GData	file:
+noSmallThumbCb	dialogs.h	/^	QCheckBox *noSmallThumbCb;$/;"	m	class:SettingsDialog
+ok	dialogs.cpp	/^void AppMgmtDialog::ok()$/;"	f	class:AppMgmtDialog
+ok	dialogs.cpp	/^void ColorsDialog::ok()$/;"	f	class:ColorsDialog
+ok	dialogs.cpp	/^void CropDialog::ok()$/;"	f	class:CropDialog
+opLabel	dialogs.h	/^	QLabel *opLabel;$/;"	m	class:CpMvDialog
+openAction	mainwindow.h	/^	QAction *openAction;$/;"	m	class:Phototonic
+openOp	mainwindow.cpp	/^void Phototonic::openOp()$/;"	f	class:Phototonic
+openWithMenuAct	mainwindow.h	/^	QAction *openWithMenuAct;$/;"	m	class:Phototonic
+openWithSubMenu	mainwindow.h	/^	QMenu *openWithSubMenu;$/;"	m	class:Phototonic
+origImage	imageview.h	/^	QImage origImage;$/;"	m	class:ImageView
+origZoom	mainwindow.cpp	/^void Phototonic::origZoom()$/;"	f	class:Phototonic
+origZoomAct	mainwindow.h	/^	QAction *origZoomAct;$/;"	m	class:Phototonic
+paintEvent	dialogs.cpp	/^void myLabel::paintEvent(QPaintEvent *event)$/;"	f	class:myLabel
+painter	dialogs.h	/^	QPainter *painter;$/;"	m	class:AutoDetectDialog
+pasteAction	mainwindow.h	/^	QAction *pasteAction;$/;"	m	class:Phototonic
+pasteImage	imageview.cpp	/^void ImageView::pasteImage()$/;"	f	class:ImageView
+pasteImageAction	mainwindow.h	/^	QAction *pasteImageAction;$/;"	m	class:Phototonic
+pasteThumbs	mainwindow.cpp	/^void Phototonic::pasteThumbs()$/;"	f	class:Phototonic
+pathBar	mainwindow.h	/^	QLineEdit *pathBar;$/;"	m	class:Phototonic
+pathComplete	mainwindow.h	/^	QCompleter *pathComplete;$/;"	m	class:Phototonic
+pathHistory	mainwindow.h	/^	QList<QString> pathHistory;$/;"	m	class:Phototonic
+pathsTable	dialogs.h	/^	QTableView *pathsTable;$/;"	m	class:CopyMoveToDialog
+pathsTableModel	dialogs.h	/^	QStandardItemModel *pathsTableModel;$/;"	m	class:CopyMoveToDialog
+peoNum	dialogs.cpp	/^int peoNum = 0;$/;"	v
+pickColor	dialogs.cpp	/^void SettingsDialog::pickColor()$/;"	f	class:SettingsDialog
+pickStartupDir	dialogs.cpp	/^void SettingsDialog::pickStartupDir()$/;"	f	class:SettingsDialog
+pickThumbsColor	dialogs.cpp	/^void SettingsDialog::pickThumbsColor()$/;"	f	class:SettingsDialog
+pickThumbsTextColor	dialogs.cpp	/^void SettingsDialog::pickThumbsTextColor()$/;"	f	class:SettingsDialog
+popMessage	imageview.cpp	/^void ImageView::popMessage(QString message)$/;"	f	class:ImageView
+preCroppedHeight	imageview.h	/^	int preCroppedHeight;$/;"	m	class:ImageView
+preCroppedWidth	imageview.h	/^	int preCroppedWidth;$/;"	m	class:ImageView
+prevImageAction	mainwindow.h	/^	QAction *prevImageAction;$/;"	m	class:Phototonic
+randomImageAction	mainwindow.h	/^	QAction *randomImageAction;$/;"	m	class:Phototonic
+readSettings	mainwindow.cpp	/^void Phototonic::readSettings()$/;"	f	class:Phototonic
+recordHistory	mainwindow.cpp	/^void Phototonic::recordHistory(QString dir)$/;"	f	class:Phototonic
+redB	dialogs.h	/^	QCheckBox *redB;$/;"	m	class:ColorsDialog
+refresh	imageview.cpp	/^void ImageView::refresh()$/;"	f	class:ImageView
+refreshAction	mainwindow.h	/^	QAction *refreshAction;$/;"	m	class:Phototonic
+refreshThumbs	mainwindow.cpp	/^void Phototonic::refreshThumbs(bool scrollToTop)$/;"	f	class:Phototonic
+reload	imageview.cpp	/^void ImageView::reload()$/;"	f	class:ImageView
+reload	mainwindow.cpp	/^void Phototonic::reload()$/;"	f	class:Phototonic
+reloadThumbsSlot	mainwindow.cpp	/^void Phototonic::reloadThumbsSlot()$/;"	f	class:Phototonic
+rememberLastDir	global.h	/^		rememberLastDir,$/;"	e	enum:GData::StartupDir
+remove	dialogs.cpp	/^void AppMgmtDialog::remove()$/;"	f	class:AppMgmtDialog
+remove	dialogs.cpp	/^void CopyMoveToDialog::remove()$/;"	f	class:CopyMoveToDialog
+removeDirOp	mainwindow.cpp	/^bool Phototonic::removeDirOp(QString dirToDelete)$/;"	f	class:Phototonic
+rename	mainwindow.cpp	/^void Phototonic::rename()$/;"	f	class:Phototonic
+renameAction	mainwindow.h	/^	QAction *renameAction;$/;"	m	class:Phototonic
+renameDir	mainwindow.cpp	/^void Phototonic::renameDir()$/;"	f	class:Phototonic
+reset	dialogs.cpp	/^void ColorsDialog::reset()$/;"	f	class:ColorsDialog
+resetZoom	mainwindow.cpp	/^void Phototonic::resetZoom()$/;"	f	class:Phototonic
+resetZoomAct	mainwindow.h	/^	QAction *resetZoomAct;$/;"	m	class:Phototonic
+resizeEvent	imageview.cpp	/^void ImageView::resizeEvent(QResizeEvent *event)$/;"	f	class:ImageView
+resizeImage	imageview.cpp	/^void ImageView::resizeImage()$/;"	f	class:ImageView
+resizeTreeColumn	thumbview.cpp	/^void FSTree::resizeTreeColumn(const QModelIndex &)$/;"	f	class:FSTree
+reverseMouseBehavior	global.cpp	/^	bool reverseMouseBehavior;$/;"	m	namespace:GData	file:
+reverseMouseCb	dialogs.h	/^	QCheckBox *reverseMouseCb;$/;"	m	class:SettingsDialog
+rgbToHsl	imageview.cpp	/^void rgbToHsl(int r, int g, int b, unsigned char *hue, unsigned char *sat, unsigned char *light)$/;"	f
+rightSpin	dialogs.h	/^	QSpinBox *rightSpin;$/;"	m	class:CropDialog
+rotateLeft	mainwindow.cpp	/^void Phototonic::rotateLeft()$/;"	f	class:Phototonic
+rotateLeftAct	mainwindow.h	/^	QAction *rotateLeftAct;$/;"	m	class:Phototonic
+rotateRight	mainwindow.cpp	/^void Phototonic::rotateRight()$/;"	f	class:Phototonic
+rotateRightAct	mainwindow.h	/^	QAction *rotateRightAct;$/;"	m	class:Phototonic
+rotation	global.cpp	/^	int rotation;$/;"	m	namespace:GData	file:
+runExternalApp	mainwindow.cpp	/^void Phototonic::runExternalApp()$/;"	f	class:Phototonic
+saturationSlide	dialogs.h	/^	QSlider *saturationSlide;$/;"	m	class:ColorsDialog
+saturationVal	global.cpp	/^	int saturationVal;$/;"	m	namespace:GData	file:
+saveAction	mainwindow.h	/^	QAction *saveAction;$/;"	m	class:Phototonic
+saveAsAction	mainwindow.h	/^	QAction *saveAsAction;$/;"	m	class:Phototonic
+saveImage	imageview.cpp	/^void ImageView::saveImage()$/;"	f	class:ImageView
+saveImageAs	imageview.cpp	/^void ImageView::saveImageAs()$/;"	f	class:ImageView
+savePaths	dialogs.cpp	/^void CopyMoveToDialog::savePaths()$/;"	f	class:CopyMoveToDialog
+saveQualitySpin	dialogs.h	/^	QSpinBox *saveQualitySpin;$/;"	m	class:SettingsDialog
+saveSettings	dialogs.cpp	/^void SettingsDialog::saveSettings()$/;"	f	class:SettingsDialog
+scrlArea	imageview.h	/^	QScrollArea *scrlArea;$/;"	m	class:ImageView
+scrollToLastImage	mainwindow.cpp	/^void Phototonic::scrollToLastImage()$/;"	f	class:Phototonic
+scrolledForward	thumbview.h	/^	bool scrolledForward;$/;"	m	class:ThumbView
+selectAllAction	mainwindow.h	/^	QAction *selectAllAction;$/;"	m	class:Phototonic
+selectAllThumbs	mainwindow.cpp	/^void Phototonic::selectAllThumbs()$/;"	f	class:Phototonic
+selectCurrentIndex	thumbview.cpp	/^void ThumbView::selectCurrentIndex()$/;"	f	class:ThumbView
+selectCurrentViewDir	mainwindow.cpp	/^void Phototonic::selectCurrentViewDir()$/;"	f	class:Phototonic
+selectedEntry	infoview.h	/^	QModelIndex selectedEntry;$/;"	m	class:InfoView
+selectedPath	dialogs.h	/^	QString selectedPath;$/;"	m	class:CopyMoveToDialog
+setActionKeyText	dialogs.cpp	/^void SettingsDialog::setActionKeyText(const QString &text)$/;"	f	class:SettingsDialog
+setBlueChannel	dialogs.cpp	/^void ColorsDialog::setBlueChannel()$/;"	f	class:ColorsDialog
+setButtonBgColor	dialogs.cpp	/^void SettingsDialog::setButtonBgColor(QColor &color, QToolButton *button)$/;"	f	class:SettingsDialog
+setClassicThumbs	mainwindow.cpp	/^void Phototonic::setClassicThumbs()$/;"	f	class:Phototonic
+setCompactThumbs	mainwindow.cpp	/^void Phototonic::setCompactThumbs()$/;"	f	class:Phototonic
+setCopyCutActions	mainwindow.cpp	/^void Phototonic::setCopyCutActions(bool setEnabled)$/;"	f	class:Phototonic
+setCurrentIndexByName	thumbview.cpp	/^void ThumbView::setCurrentIndexByName(QString &FileName)$/;"	f	class:ThumbView
+setCurrentRow	thumbview.cpp	/^void ThumbView::setCurrentRow(int row)$/;"	f	class:ThumbView
+setCursorHiding	imageview.cpp	/^void ImageView::setCursorHiding(bool hide)$/;"	f	class:ImageView
+setCursorOverrides	imageview.cpp	/^void ImageView::setCursorOverrides(bool override)$/;"	f	class:ImageView
+setGreenChannel	dialogs.cpp	/^void ColorsDialog::setGreenChannel()$/;"	f	class:ColorsDialog
+setImageviewWindowTitle	thumbview.cpp	/^void ThumbView::setImageviewWindowTitle()$/;"	f	class:ThumbView
+setIncludeSubFolders	mainwindow.cpp	/^void Phototonic::setIncludeSubFolders()$/;"	f	class:Phototonic
+setMirrorDisabled	mainwindow.cpp	/^void Phototonic::setMirrorDisabled()$/;"	f	class:Phototonic
+setMirrorDual	mainwindow.cpp	/^void Phototonic::setMirrorDual()$/;"	f	class:Phototonic
+setMirrorQuad	mainwindow.cpp	/^void Phototonic::setMirrorQuad()$/;"	f	class:Phototonic
+setMirrorTriple	mainwindow.cpp	/^void Phototonic::setMirrorTriple()$/;"	f	class:Phototonic
+setMirrorVDual	mainwindow.cpp	/^void Phototonic::setMirrorVDual()$/;"	f	class:Phototonic
+setMouseMoveData	imageview.cpp	/^void ImageView::setMouseMoveData(bool lockMove, int lMouseX, int lMouseY)$/;"	f	class:ImageView
+setNeedScroll	thumbview.h	/^	void setNeedScroll(bool needScroll)$/;"	f	class:ThumbView
+setRedChannel	dialogs.cpp	/^void ColorsDialog::setRedChannel()$/;"	f	class:ColorsDialog
+setSquarishThumbs	mainwindow.cpp	/^void Phototonic::setSquarishThumbs()$/;"	f	class:Phototonic
+setStatus	mainwindow.cpp	/^void Phototonic::setStatus(QString state)$/;"	f	class:Phototonic
+setThumbColors	thumbview.cpp	/^void ThumbView::setThumbColors()$/;"	f	class:ThumbView
+setThumbViewWidgetsVisible	mainwindow.cpp	/^void Phototonic::setThumbViewWidgetsVisible(bool visible)$/;"	f	class:Phototonic
+setThumbsFilter	mainwindow.cpp	/^void Phototonic::setThumbsFilter()$/;"	f	class:Phototonic
+setThumbviewWindowTitle	mainwindow.cpp	/^void Phototonic::setThumbviewWindowTitle()$/;"	f	class:Phototonic
+setToolBarsVisibility	mainwindow.cpp	/^void Phototonic::setToolBarsVisibility()$/;"	f	class:Phototonic
+setfsModelFlags	mainwindow.cpp	/^void Phototonic::setfsModelFlags()$/;"	f	class:Phototonic
+settingsAction	mainwindow.h	/^	QAction *settingsAction;$/;"	m	class:Phototonic
+shouldMaximize	mainwindow.h	/^	bool shouldMaximize;$/;"	m	class:Phototonic
+showAutoDetect	mainwindow.cpp	/^void Phototonic::showAutoDetect()$/;"	f	class:Phototonic
+showColorsDialog	mainwindow.cpp	/^void Phototonic::showColorsDialog()$/;"	f	class:Phototonic
+showEvent	imageview.cpp	/^void ImageView::showEvent(QShowEvent *event)$/;"	f	class:ImageView
+showHiddenFiles	global.cpp	/^	bool showHiddenFiles;$/;"	m	namespace:GData	file:
+showHiddenFiles	mainwindow.cpp	/^void Phototonic::showHiddenFiles()$/;"	f	class:Phototonic
+showImageLabel	dialogs.h	/^	QWidget *showImageLabel;$/;"	m	class:AutoDetectDialog
+showInfoViewMenu	infoview.cpp	/^void InfoView::showInfoViewMenu(QPoint pt)$/;"	f	class:InfoView
+showNewImageWarning	mainwindow.cpp	/^void Phototonic::showNewImageWarning(QWidget *parent)$/;"	f	class:Phototonic
+showSettings	mainwindow.cpp	/^void Phototonic::showSettings()$/;"	f	class:Phototonic
+slideDelaySpin	dialogs.h	/^	QSpinBox *slideDelaySpin;$/;"	m	class:SettingsDialog
+slideRandomCb	dialogs.h	/^	QCheckBox *slideRandomCb;$/;"	m	class:SettingsDialog
+slideShow	mainwindow.cpp	/^void Phototonic::slideShow()$/;"	f	class:Phototonic
+slideShowAction	mainwindow.h	/^	QAction *slideShowAction;$/;"	m	class:Phototonic
+slideShowActive	global.cpp	/^	bool slideShowActive;$/;"	m	namespace:GData	file:
+slideShowDelay	global.cpp	/^	int slideShowDelay;$/;"	m	namespace:GData	file:
+slideShowHandler	mainwindow.cpp	/^void Phototonic::slideShowHandler()$/;"	f	class:Phototonic
+slideShowRandom	global.cpp	/^	bool slideShowRandom;$/;"	m	namespace:GData	file:
+sortMenu	mainwindow.h	/^	QMenu *sortMenu;$/;"	m	class:Phototonic
+sortThumbnains	mainwindow.cpp	/^void Phototonic::sortThumbnains()$/;"	f	class:Phototonic
+sortTypesGroup	mainwindow.h	/^	QActionGroup *sortTypesGroup;$/;"	m	class:Phototonic
+specifiedDir	global.h	/^		specifiedDir$/;"	e	enum:GData::StartupDir
+specifiedStartDir	global.cpp	/^	QString specifiedStartDir;$/;"	m	namespace:GData	file:
+stackedWidget	mainwindow.h	/^	QStackedWidget *stackedWidget;$/;"	m	class:Phototonic
+startDrag	thumbview.cpp	/^void ThumbView::startDrag(Qt::DropActions)$/;"	f	class:ThumbView
+startTimeEdit	dialogs.h	/^	QLineEdit *startTimeEdit;$/;"	m	class:AutoDetectDialog
+startTimeLabel	dialogs.h	/^	QLabel *startTimeLabel;$/;"	m	class:AutoDetectDialog
+startupDir	global.cpp	/^	StartupDir startupDir;$/;"	m	namespace:GData	file:
+startupDirEdit	dialogs.h	/^	QLineEdit *startupDirEdit;$/;"	m	class:SettingsDialog
+startupDirRadios	dialogs.h	/^	QRadioButton *startupDirRadios[3];$/;"	m	class:SettingsDialog
+stateLabel	mainwindow.h	/^	QLabel *stateLabel;$/;"	m	class:Phototonic
+subFoldersAction	mainwindow.h	/^	QAction *subFoldersAction;$/;"	m	class:Phototonic
+tempDisableResize	imageview.h	/^	bool tempDisableResize;$/;"	m	class:ImageView
+thumbBgColor	dialogs.h	/^	QColor thumbBgColor;$/;"	m	class:SettingsDialog
+thumbFileInfo	thumbview.h	/^	QFileInfo thumbFileInfo;$/;"	m	class:ThumbView
+thumbFileInfoList	thumbview.h	/^	QFileInfoList thumbFileInfoList;$/;"	m	class:ThumbView
+thumbHeight	thumbview.h	/^	int thumbHeight;$/;"	m	class:ThumbView
+thumbLayoutsGroup	mainwindow.h	/^	QActionGroup *thumbLayoutsGroup;$/;"	m	class:Phototonic
+thumbList	thumbview.h	/^	QList<QStandardItem*> *thumbList;$/;"	m	class:ThumbView
+thumbLoaderActive	thumbview.h	/^	bool thumbLoaderActive;$/;"	m	class:ThumbView
+thumbPagesReadahead	global.cpp	/^	unsigned int thumbPagesReadahead;$/;"	m	namespace:GData	file:
+thumbPagesSpin	dialogs.h	/^	QSpinBox *thumbPagesSpin;$/;"	m	class:SettingsDialog
+thumbSize	thumbview.h	/^	int thumbSize;$/;"	m	class:ThumbView
+thumbSpacing	global.cpp	/^	unsigned int thumbSpacing;$/;"	m	namespace:GData	file:
+thumbSpacingSpin	dialogs.h	/^	QSpinBox *thumbSpacingSpin;$/;"	m	class:SettingsDialog
+thumbTextColor	dialogs.h	/^	QColor thumbTextColor;$/;"	m	class:SettingsDialog
+thumbView	mainwindow.h	/^	ThumbView *thumbView;$/;"	m	class:Phototonic
+thumbViewBusy	mainwindow.h	/^	bool thumbViewBusy;$/;"	m	class:Phototonic
+thumbViewIdx	mainwindow.h	/^		thumbViewIdx = 0,$/;"	e	enum:Phototonic::CentralWidgets
+thumbViewModel	thumbview.h	/^	QStandardItemModel *thumbViewModel;$/;"	m	class:ThumbView
+thumbWidth	thumbview.h	/^	int thumbWidth;$/;"	m	class:ThumbView
+thumbsBackgroundColor	global.cpp	/^	QColor thumbsBackgroundColor;$/;"	m	namespace:GData	file:
+thumbsDir	thumbview.h	/^	QDir *thumbsDir;$/;"	m	class:ThumbView
+thumbsGoBottomAct	mainwindow.h	/^	QAction *thumbsGoBottomAct;$/;"	m	class:Phototonic
+thumbsGoTopAct	mainwindow.h	/^	QAction *thumbsGoTopAct;$/;"	m	class:Phototonic
+thumbsLayout	global.cpp	/^	unsigned int thumbsLayout;$/;"	m	namespace:GData	file:
+thumbsMenuBar	mainwindow.h	/^	QMenuBar *thumbsMenuBar;$/;"	m	class:Phototonic
+thumbsRangeFirst	thumbview.h	/^	int thumbsRangeFirst;$/;"	m	class:ThumbView
+thumbsRangeLast	thumbview.h	/^	int thumbsRangeLast;$/;"	m	class:ThumbView
+thumbsSortFlags	thumbview.h	/^	QDir::SortFlags thumbsSortFlags;$/;"	m	class:ThumbView
+thumbsTextColor	global.cpp	/^	QColor thumbsTextColor;$/;"	m	namespace:GData	file:
+thumbsZoomIn	mainwindow.cpp	/^void Phototonic::thumbsZoomIn()$/;"	f	class:Phototonic
+thumbsZoomInAct	mainwindow.h	/^	QAction *thumbsZoomInAct;$/;"	m	class:Phototonic
+thumbsZoomOut	mainwindow.cpp	/^void Phototonic::thumbsZoomOut()$/;"	f	class:Phototonic
+thumbsZoomOutAct	mainwindow.h	/^	QAction *thumbsZoomOutAct;$/;"	m	class:Phototonic
+timer	dialogs.h	/^	QTimer *timer;$/;"	m	class:AutoDetectDialog
+toggleFullScreen	mainwindow.cpp	/^void Phototonic::toggleFullScreen()$/;"	f	class:Phototonic
+topSpin	dialogs.h	/^	QSpinBox *topSpin;$/;"	m	class:CropDialog
+transform	imageview.cpp	/^void ImageView::transform()$/;"	f	class:ImageView
+transformSubMenu	mainwindow.h	/^	QMenu *transformSubMenu;$/;"	m	class:Phototonic
+transformSubMenuAct	mainwindow.h	/^	QAction *transformSubMenuAct;$/;"	m	class:Phototonic
+unsetBusy	mainwindow.cpp	/^void Phototonic::unsetBusy()$/;"	f	class:Phototonic
+updateActions	mainwindow.cpp	/^void Phototonic::updateActions(QWidget*, QWidget *selectedWidget)$/;"	f	class:Phototonic
+updateCurrentImage	mainwindow.cpp	/^void Phototonic::updateCurrentImage(int currentRow)$/;"	f	class:Phototonic
+updateExifInfo	thumbview.cpp	/^void ThumbView::updateExifInfo(QString imageFullPath)$/;"	f	class:ThumbView
+updateExternalApps	mainwindow.cpp	/^void Phototonic::updateExternalApps()$/;"	f	class:Phototonic
+updateFlag	dialogs.cpp	/^int updateFlag = 0;$/;"	v
+updateThumbsCount	thumbview.cpp	/^void ThumbView::updateThumbsCount()$/;"	f	class:ThumbView
+vLocEdit	dialogs.h	/^	QLineEdit *vLocEdit;$/;"	m	class:AutoDetectDialog
+vLocLabel	dialogs.h	/^	QLabel *vLocLabel;$/;"	m	class:AutoDetectDialog
+viewMenu	mainwindow.h	/^	QMenu *viewMenu;$/;"	m	class:Phototonic
+viewToolBar	mainwindow.h	/^	QToolBar *viewToolBar;$/;"	m	class:Phototonic
+viewToolBarVisible	mainwindow.h	/^	bool viewToolBarVisible;$/;"	m	class:Phototonic
+wheelEvent	mainwindow.cpp	/^void Phototonic::wheelEvent(QWheelEvent *event)$/;"	f	class:Phototonic
+wheelEvent	thumbview.cpp	/^void ThumbView::wheelEvent(QWheelEvent *event)$/;"	f	class:ThumbView
+wrapImageList	global.cpp	/^	bool wrapImageList;$/;"	m	namespace:GData	file:
+wrapListCb	dialogs.h	/^	QCheckBox *wrapListCb;$/;"	m	class:SettingsDialog
+writeSettings	mainwindow.cpp	/^void Phototonic::writeSettings()$/;"	f	class:Phototonic
+xPos	dialogs.cpp	/^float xPos[10], yPos[10];$/;"	v
+yPos	dialogs.cpp	/^float xPos[10], yPos[10];$/;"	v
+zoomIn	mainwindow.cpp	/^void Phototonic::zoomIn()$/;"	f	class:Phototonic
+zoomInAct	mainwindow.h	/^	QAction *zoomInAct;$/;"	m	class:Phototonic
+zoomInFlags	global.cpp	/^	unsigned int zoomInFlags;$/;"	m	namespace:GData	file:
+zoomOut	mainwindow.cpp	/^void Phototonic::zoomOut()$/;"	f	class:Phototonic
+zoomOutAct	mainwindow.h	/^	QAction *zoomOutAct;$/;"	m	class:Phototonic
+zoomOutFlags	global.cpp	/^	unsigned int zoomOutFlags;$/;"	m	namespace:GData	file:
+zoomSubMenu	mainwindow.h	/^	QMenu *zoomSubMenu;$/;"	m	class:Phototonic
+zoomSubMenuAct	mainwindow.h	/^	QAction *zoomSubMenuAct;$/;"	m	class:Phototonic

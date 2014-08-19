@@ -15,9 +15,23 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #include "dialogs.h"
 #include "global.h"
+
+#include <unistd.h>
+
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/objdetect/objdetect.hpp"
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv/cxcore.h"
+#include "opencv/cv.h"
+
+using namespace std;
+using namespace cv;
+
+int updateFlag = 0;
+int peoNum = 0;
+float xPos[10], yPos[10];
 
 CpMvDialog::CpMvDialog(QWidget *parent) : QDialog(parent)
 {
@@ -215,6 +229,370 @@ void KeyGrabLineEdit::clearShortcut()
 void SettingsDialog::setActionKeyText(const QString &text)
 {
 	keyLine->setText(GData::actionKeys.value(text)->shortcut().toString());
+}
+
+/* added by LTC */
+AutoDetectDialog::AutoDetectDialog(QWidget *parent) : QDialog(parent)
+{
+	setWindowTitle(tr("AutoDetect"));
+
+//	保持比后面父窗口小，上下留出空间
+	int height = parent->size().height() - 50;
+	if (height > 800)
+		height = 800;
+	resize(600, height);
+
+	QHBoxLayout *timeRangeHbox = new QHBoxLayout;
+
+	QLabel *startTimeLabel = new QLabel(tr("start :"));
+	startTimeLabel->setMaximumWidth(50);
+	startTimeEdit = new QLineEdit;
+	startTimeEdit->setClearButtonEnabled(true);
+	startTimeEdit->setMinimumWidth(100);
+	startTimeEdit->setMaximumWidth(150);
+
+	QLabel *endTimeLabel = new QLabel(tr("end :"));
+	endTimeLabel->setMaximumWidth(50);
+	endTimeEdit = new QLineEdit;
+	endTimeEdit->setClearButtonEnabled(true);
+	endTimeEdit->setMinimumWidth(100);
+	endTimeEdit->setMaximumWidth(150);
+
+	QPushButton *autoDetectButton = new QPushButton(tr("Auto Detect"));
+	connect(autoDetectButton, SIGNAL(clicked()), this, SLOT(autoDetect()));
+
+	timeRangeHbox->addWidget(startTimeLabel, 0, Qt::AlignLeft);
+	timeRangeHbox->addWidget(startTimeEdit);
+	timeRangeHbox->addStretch(1);
+	timeRangeHbox->addWidget(endTimeLabel, 0, Qt::AlignLeft);
+	timeRangeHbox->addWidget(endTimeEdit);
+	timeRangeHbox->addStretch(1);
+	timeRangeHbox->addWidget(autoDetectButton);
+
+	QLabel *eLocLabel = new QLabel(tr("E-signal Location:"));
+	eLocEdit = new QLineEdit;
+	eLocEdit->setClearButtonEnabled(true);
+	eLocEdit->setMinimumWidth(400);
+	eLocEdit->setMaximumWidth(450);
+
+	QLabel *vLocLabel = new QLabel(tr("V-signal Location:"));
+	vLocEdit = new QLineEdit;
+	vLocEdit->setClearButtonEnabled(true);
+	vLocEdit->setMinimumWidth(400);
+	vLocEdit->setMaximumWidth(450);
+
+	QHBoxLayout *eLocLayout = new QHBoxLayout;
+	eLocLayout->addWidget(eLocLabel);
+	eLocLayout->addWidget(eLocEdit);
+	QHBoxLayout *vLocLayout = new QHBoxLayout;
+	vLocLayout->addWidget(vLocLabel);
+	vLocLayout->addWidget(vLocEdit);
+
+	QLabel *evLocLabel = new QLabel(tr("E-V Location:"));
+	evLocEdit = new QLineEdit;
+	evLocEdit->setClearButtonEnabled(true);
+	evLocEdit->setMinimumWidth(400);
+	evLocEdit->setMaximumWidth(450);
+
+	QHBoxLayout *comLocLayout = new QHBoxLayout;
+	comLocLayout->addWidget(evLocLabel);
+	comLocLayout->addWidget(evLocEdit);
+
+	myLabel *showImageLabel = new myLabel;
+//	QPainter painter(showImageLabel);
+
+	QVBoxLayout *mainVbox = new QVBoxLayout;
+	mainVbox->addLayout(timeRangeHbox);
+	mainVbox->addLayout(eLocLayout);
+	mainVbox->addLayout(vLocLayout);
+	mainVbox->addLayout(comLocLayout);
+	mainVbox->addWidget(showImageLabel);
+	setLayout(mainVbox);
+}
+
+/* added by LTC */
+myLabel::myLabel()
+{
+	resize(400,400);
+	setWindowTitle(tr("Paint Demo"));
+}
+
+/* added by LTC */
+void myLabel::paintEvent(QPaintEvent *event)
+{
+	QPainter painter(this);
+	painter.setPen(QPen(Qt::blue, 3));
+	painter.setBrush(QBrush(Qt::black, Qt::CrossPattern));
+	painter.drawRect(10, 10, 400, 400);
+	if (updateFlag) {
+		painter.setPen(QPen(Qt::red, 8));
+		for (int i = 0; i < peoNum; i++) {
+			if (xPos[i] >= 0 && yPos[i] >= 0) {
+				painter.drawPoint((int)(xPos[i] * 100 + 10), (int)(yPos[i] * 100 + 10));
+printf("LTC print drawPoint num %d, x is %d, y is %d, peoNum is %d\n", i, (int)(xPos[i] * 100 + 10), (int)(yPos[i] * 100 + 10), peoNum);
+			}
+		}
+		for (int i = 0; i <= peoNum; i++) {
+			xPos[i] = 0;
+			yPos[i] = 0;
+		}
+		peoNum = 0;
+	}
+}
+
+/* added by LTC */
+void myLabel::drawPoint(float x, float y)
+{
+	QPainter painter(this);
+	painter.setPen(QPen(Qt::blue, 3));
+	painter.drawPoint(x, y);
+}
+
+/* added by LTC */
+void AutoDetectDialog::autoDetect()
+{
+#if 1
+	QString startTimeStr, endTimeStr;
+	string tempStr;
+	string numbers("0123456789");
+	string::size_type pos;
+//	string firstPic, lastPic, fileName, fileNameShort;
+	string firstPic, lastPic, fileName;
+	int time_legal = 1;
+
+	QDir dir;
+	dir.setPath("/home/daqiuqu/work/camera_test");
+	dir.setFilter(QDir::Files | QDir::Hidden | QDir::NoSymLinks);
+	dir.setSorting(QDir::Size | QDir::Reversed);
+	QFileInfoList list = dir.entryInfoList();
+
+printf("push button auto detect\n");
+	startTimeStr = startTimeEdit->text();
+	tempStr = startTimeStr.toStdString();
+	firstPic = tempStr;
+	cout << tempStr << endl;
+	pos = tempStr.find_first_not_of(numbers);
+	if (pos != string::npos) {
+		printf("start time must be numbers, pos is %ld\n", pos);
+		time_legal = 0;
+	}
+	
+	endTimeStr = endTimeEdit->text();
+	tempStr = endTimeStr.toStdString();
+	lastPic = tempStr;
+	cout << tempStr << endl;
+	pos = tempStr.find_first_not_of(numbers);
+	if (pos != string::npos) {
+		printf("end time must be numbers, pos is %ld\n", pos);
+		time_legal = 0;
+	}
+
+	if (time_legal) {
+		for (int i = 0; i < list.size(); ++i) {
+			QFileInfo fileInfo = list.at(i);
+			fileName = fileInfo.fileName().toStdString();
+printf("LTC printf before judge fileName i = %d\n", i);
+cout << "LTC print fileName is : " << fileName << endl;
+			if (fileName.size() > 14) {
+				string fileNameShort(fileName, 0, firstPic.size());
+cout << "LTC print fileNameShort is : " << fileNameShort << endl;
+				if (fileName >= firstPic && fileName <= lastPic) {
+					printf("LTC print before imageDetect\n");
+					imageDetect(fileName);
+				}
+			}
+		}
+	}
+#endif
+}
+
+#if 1 
+/* Added by LTC */
+void AutoDetectDialog::imageDetect(string fileName)
+{
+//printf("LTC print enter %s\n", __func__);
+	Mat img;
+	FILE* f = 0;
+	char _filename[1024];
+	char vLocAll[100];
+	float a[30], b[30];
+
+	string dir("/home/daqiuqu/work/camera_test/");
+	string fileNameFull = dir + fileName;
+
+	img = imread(fileNameFull);
+//cout << "fileNameFull is " << fileNameFull << endl;
+        strcpy(_filename, fileNameFull.c_str());
+
+	HOGDescriptor hog;
+	hog.setSVMDetector(HOGDescriptor::getDefaultPeopleDetector());
+	namedWindow("people detector", 1);
+
+	for(;;)
+	{
+		vLocEdit->setText(tr(""));
+		char* filename = _filename;
+		printf("LTC print filename %s: in %s\n", filename, __func__);
+		if(!img.data)
+		    continue;
+		
+		fflush(stdout);
+		vector<Rect> found, found_filtered;
+		double t = (double)getTickCount();
+		// run the detector with default parameters. to get a higher hit-rate
+		// (and more false alarms, respectively), decrease the hitThreshold and
+		// groupThreshold (set groupThreshold to 0 to turn off the grouping completely).
+		hog.detectMultiScale(img, found, 0, Size(8,8), Size(32,32), 1.05, 2);
+		t = (double)getTickCount() - t;
+		printf("tdetection time = %gms\n", t*1000./cv::getTickFrequency());
+		size_t i, j;
+		for( i = 0; i < found.size(); i++ )
+		{
+		    Rect r = found[i];
+		    for( j = 0; j < found.size(); j++ )
+		        if( j != i && (r & found[j]) == r)
+		            break;
+		    if( j == found.size() )
+		        found_filtered.push_back(r);
+		}
+		for( i = 0; i < found_filtered.size(); i++ )
+		{
+		    Rect r = found_filtered[i];
+		    // the HOG detector returns slightly larger rectangles than the real objects.
+		    // so we slightly shrink the rectangles to get a nicer output.
+		    r.x += cvRound(r.width*0.1);
+		    r.width = cvRound(r.width*0.8);
+		    r.y += cvRound(r.height*0.07);
+		    r.height = cvRound(r.height*0.8);
+		    rectangle(img, r.tl(), r.br(), cv::Scalar(0,255,0), 3);
+
+			// Added for V Loc
+//			char tmpV[30];
+			a[i] = r.x + r.width/2;
+			b[i] = r.y + r.height;
+printf("LTC print before coordinate transformation\n");
+			coordinate_transformation(a[i],b[i]);
+//			tmpV = coordinate_transformation(a[i],b[i]);
+//			sprintf(vLocAll, "%s %s", vLocAll, tmpV);
+//			sprintf(vLocAll, "%s %s", vLocAll, coordinate_transformation(a[i],b[i]));
+//			peoNum = i;
+			peoNum++;
+printf("LTC print after coordinate transformation,i is %d, xPos is %f, yPos is %f, a[i] is %f, b[i] is %f\n",i,  xPos[i], yPos[i], a[i], b[i]);
+		}
+printf("LTC print i is %d\n", i);
+		if (i) {
+printf("LTC print update Flag is 1\n");
+			updateFlag = 1;
+			update();
+		} else
+			updateFlag = 0;
+//		imwrite("/home/daqiuqu/peoDtt.jpg", img);
+//		vLocEdit->setText(vLocAll);
+		imshow("people detector", img);
+//		int c = waitKey(0) & 255;
+		int c = waitKey(1000) & 255;
+		if (c == 'p')
+			c = waitKey(0) & 255;
+		if (c == 'g')
+			return;
+		if( c == 'q' || c == 'Q' || !f) {
+			printf("LTC print QUIT\n");
+			return;
+		}
+//		    break;
+//		if(!f)
+//			return;
+//		else {
+//	    		fclose(f);
+//			return;
+//		}
+	}	
+//	if(f)
+//	    fclose(f);
+}
+#endif
+
+/* Added by LTC */
+char AutoDetectDialog::coordinate_transformation(float x,float y)
+{	
+printf("LTC print :Entering %s\n", __func__);
+	char enter;
+	CvMat* object_points;
+	CvMat* image_points;
+	CvMat* image_points2;	
+	CvMat* homography;
+	CvMat* homographyT;
+	CvMat* test_points;
+	CvMat* result_points;
+	
+	object_points=cvCreateMat(9,3,CV_32F); 
+	image_points=cvCreateMat(9,3,CV_32F);
+	image_points2=cvCreateMat(9,3,CV_32F); 
+	homography=cvCreateMat(3,3,CV_32F);
+	homographyT=cvCreateMat(3,3,CV_32F);
+	test_points=cvCreateMat(1,3,CV_32F);
+	result_points=cvCreateMat(1,3,CV_32F);
+	
+	//9¸ö±ê¶¨µãµÄÊµ¼Ê×ø±ê
+	CV_MAT_ELEM(*object_points,float,0,0)=0.6;	CV_MAT_ELEM(*object_points,float,0,1)=3.0;   CV_MAT_ELEM(*object_points,float,0,2)=1;
+	CV_MAT_ELEM(*object_points,float,1,0)=0.6;	CV_MAT_ELEM(*object_points,float,1,1)=3.6;   CV_MAT_ELEM(*object_points,float,1,2)=1;
+	CV_MAT_ELEM(*object_points,float,2,0)=1.2;	CV_MAT_ELEM(*object_points,float,2,1)=2.4;   CV_MAT_ELEM(*object_points,float,2,2)=1;
+	CV_MAT_ELEM(*object_points,float,3,0)=1.2;	CV_MAT_ELEM(*object_points,float,3,1)=3.0;   CV_MAT_ELEM(*object_points,float,3,2)=1;
+	CV_MAT_ELEM(*object_points,float,4,0)=1.8;	CV_MAT_ELEM(*object_points,float,4,1)=1.8;   CV_MAT_ELEM(*object_points,float,4,2)=1;
+	CV_MAT_ELEM(*object_points,float,5,0)=1.8;	CV_MAT_ELEM(*object_points,float,5,1)=2.4;   CV_MAT_ELEM(*object_points,float,5,2)=1;
+	CV_MAT_ELEM(*object_points,float,6,0)=1.8;	CV_MAT_ELEM(*object_points,float,6,1)=3.0;   CV_MAT_ELEM(*object_points,float,6,2)=1;
+	CV_MAT_ELEM(*object_points,float,7,0)=2.4;	CV_MAT_ELEM(*object_points,float,7,1)=1.2;   CV_MAT_ELEM(*object_points,float,7,2)=1;
+	CV_MAT_ELEM(*object_points,float,8,0)=2.4;	CV_MAT_ELEM(*object_points,float,8,1)=3.0;   CV_MAT_ELEM(*object_points,float,8,2)=1;
+
+	//9¸ö±ê¶¨µãÔÚÍ¼ÏñÖÐµÄ×ø±ê
+	CV_MAT_ELEM(*image_points,float,0,0)=120;	CV_MAT_ELEM(*image_points,float,0,1)=416;   CV_MAT_ELEM(*image_points,float,0,2)=1;
+	CV_MAT_ELEM(*image_points,float,1,0)=80;	CV_MAT_ELEM(*image_points,float,1,1)=474;   CV_MAT_ELEM(*image_points,float,1,2)=1;
+	CV_MAT_ELEM(*image_points,float,2,0)=255;	CV_MAT_ELEM(*image_points,float,2,1)=377;   CV_MAT_ELEM(*image_points,float,2,2)=1; 
+	CV_MAT_ELEM(*image_points,float,3,0)=243;	CV_MAT_ELEM(*image_points,float,3,1)=424;   CV_MAT_ELEM(*image_points,float,3,2)=1;
+	CV_MAT_ELEM(*image_points,float,4,0)=360;	CV_MAT_ELEM(*image_points,float,4,1)=345;   CV_MAT_ELEM(*image_points,float,4,2)=1;
+	CV_MAT_ELEM(*image_points,float,5,0)=366;	CV_MAT_ELEM(*image_points,float,5,1)=378;   CV_MAT_ELEM(*image_points,float,5,2)=1;
+	CV_MAT_ELEM(*image_points,float,6,0)=375;	CV_MAT_ELEM(*image_points,float,6,1)=424;   CV_MAT_ELEM(*image_points,float,6,2)=1;
+	CV_MAT_ELEM(*image_points,float,7,0)=435;	CV_MAT_ELEM(*image_points,float,7,1)=318;   CV_MAT_ELEM(*image_points,float,7,2)=1;
+	CV_MAT_ELEM(*image_points,float,8,0)=499;	CV_MAT_ELEM(*image_points,float,8,1)=418;   CV_MAT_ELEM(*image_points,float,8,2)=1;
+
+	//Çóµ¥Ó¦¾ØÕó
+	cvFindHomography(image_points,object_points, homography );
+
+	CV_MAT_ELEM(*test_points,float,0,0) = x;
+	CV_MAT_ELEM(*test_points,float,0,1) = y;
+	CV_MAT_ELEM(*test_points,float,0,2)=1;
+
+	//¼ÆËã×ø±ê
+	cvTranspose( homography, homographyT );
+	cvMatMul(test_points,homographyT,result_points);
+	float x0 = CV_MAT_ELEM(*result_points,float,0,0)/CV_MAT_ELEM(*result_points,float,0,2);
+	float y0 = CV_MAT_ELEM(*result_points,float,0,1)/CV_MAT_ELEM(*result_points,float,0,2);
+
+	xPos[peoNum] = x0;
+	yPos[peoNum] = y0;
+printf("Pos debug peoNum = %d, xPos is %f, yPos is %f\n", peoNum, xPos[peoNum], yPos[peoNum]);
+//	printf("\n¿Õ¼äÆ½Ãæ×ø±ê: ");
+//	printf("[ %6.4f %6.4f ] \n\n",x0 ,y0 );
+	char vLoc[100];
+//	string str;
+//	str = vLocEdit->text().toStdString();
+	sprintf(vLoc, "%s(%6.2f,%6.2f);", qPrintable(vLocEdit->text()), x0, y0);
+//	cout << "vLoc is: " << vLoc << endl;
+	vLocEdit->setText(vLoc);
+//	timer = new QTimer();
+//	connect(timer, SIGNAL(timeout()), &showImageLabel, SLOT(drawPoints(x0 * 10, y0 * 10)));
+//	timer->start(10);
+//	QPainter painter(&myLabel);
+//	painter.setPen(QPen(Qt::blue, 3));
+//	painter.setBrush(QBrush(Qt::black, Qt::CrossPattern));
+//	painter.drawRect(10, 10, 400, 400);
+//	painter.drawPoint(x0 * 10, y0 * 10);
+
+	
+	
+//	scanf("%c",&enter);
+//	scanf("%c",&enter);
+	return *vLoc;
 }
 
 SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent)

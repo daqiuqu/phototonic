@@ -20,6 +20,17 @@
 #include "thumbview.h"
 #include "global.h"
 
+#include <unistd.h>
+#include <string.h>
+#include <ctype.h>
+
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/objdetect/objdetect.hpp"
+#include "opencv2/highgui/highgui.hpp"
+
+using namespace cv;
+using namespace std;
+
 #define THUMB_SIZE_MIN	50
 #define THUMB_SIZE_MAX	300
 
@@ -256,6 +267,8 @@ void Phototonic::createImageView()
 	imageView->setContextMenuPolicy(Qt::DefaultContextMenu);
 	GData::isFullScreen = GData::appSettings->value("isFullScreen").toBool();
 	fullScreenAct->setChecked(GData::isFullScreen); 
+printf("Endof create image view\n");
+usleep(1000000);
 }
 
 void Phototonic::createActions()
@@ -278,6 +291,10 @@ void Phototonic::createActions()
 	settingsAction = new QAction(tr("Preferences"), this);
 	settingsAction->setIcon(QIcon::fromTheme("document-properties", QIcon(":/images/settings.png")));
 	connect(settingsAction, SIGNAL(triggered()), this, SLOT(showSettings()));
+
+	autoDetectAct = new QAction(tr("Auto Detect"), this);
+//	settingsAction->setIcon(QIcon::fromTheme("document-properties", QIcon(":/images/settings.png")));
+	connect(autoDetectAct, SIGNAL(triggered()), this, SLOT(showAutoDetect()));
 
 	exitAction = new QAction(tr("Exit"), this);
 	connect(exitAction, SIGNAL(triggered()), this, SLOT(close()));
@@ -565,6 +582,9 @@ void Phototonic::createMenus()
 	goMenu->addSeparator();
 	goMenu->addAction(thumbsGoTopAct);
 	goMenu->addAction(thumbsGoBottomAct);
+
+	locMenu = menuBar()->addMenu(tr("&PeopleLoc"));
+	locMenu->addAction(autoDetectAct);
 
 	viewMenu = menuBar()->addMenu(tr("&View"));
 	viewMenu->addAction(thumbsZoomInAct);
@@ -893,6 +913,7 @@ void Phototonic::showSettings()
 	SettingsDialog *dialog = new SettingsDialog(this);
 	if (dialog->exec())
 	{
+printf("show Settings \n");
 		imageView->setPalette(QPalette(GData::backgroundColor));
 		thumbView->setThumbColors();
 		GData::imageZoomFactor = 1.0;
@@ -910,6 +931,19 @@ void Phototonic::showSettings()
 
 	if (stackedWidget->currentIndex() == imageViewIdx)
 		imageView->setCursorOverrides(true);
+}
+
+void Phototonic::showAutoDetect()
+{
+	AutoDetectDialog *dialog = new AutoDetectDialog(this);
+printf("LTC's dialog 111\n");
+	if (dialog->exec())
+	{
+		printf("LTC's dialog exec\n");
+	}
+printf("LTC's dialog 222\n");
+	delete dialog;
+
 }
 
 void Phototonic::toggleFullScreen()
@@ -1038,6 +1072,7 @@ void Phototonic::thumbsZoomOut()
 
 void Phototonic::zoomOut()
 {
+printf("Entering zoomOut\n");
 	GData::imageZoomFactor -= (GData::imageZoomFactor <= 0.25)? 0 : 0.25;
 	imageView->tempDisableResize = false;
 	imageView->resizeImage();
@@ -1045,6 +1080,7 @@ void Phototonic::zoomOut()
 
 void Phototonic::zoomIn()
 {
+printf("Entering zoomIn\n");
 	GData::imageZoomFactor += (GData::imageZoomFactor >= 3.25)? 0 : 0.25;
 	imageView->tempDisableResize = false;
 	imageView->resizeImage();
@@ -1052,6 +1088,7 @@ void Phototonic::zoomIn()
 
 void Phototonic::resetZoom()
 {
+printf("Entering resetZoom\n");
 	GData::imageZoomFactor = 1.0;
 	imageView->tempDisableResize = false;
 	imageView->resizeImage();
@@ -1059,6 +1096,7 @@ void Phototonic::resetZoom()
 
 void Phototonic::origZoom()
 {
+printf("Entering origZoom\n");
 	GData::imageZoomFactor = 1.0;
 	imageView->tempDisableResize = true;
 	imageView->resizeImage();
@@ -1642,6 +1680,7 @@ void Phototonic::loadShortcuts()
 	GData::actionKeys[closeImageAct->text()] = closeImageAct;
 	GData::actionKeys[fullScreenAct->text()] = fullScreenAct;
 	GData::actionKeys[settingsAction->text()] = settingsAction;
+	GData::actionKeys[autoDetectAct->text()] = autoDetectAct;
 	GData::actionKeys[exitAction->text()] = exitAction;
 	GData::actionKeys[thumbsZoomInAct->text()] = thumbsZoomInAct;
 	GData::actionKeys[thumbsZoomOutAct->text()] = thumbsZoomOutAct;
@@ -1708,6 +1747,7 @@ void Phototonic::loadShortcuts()
 		closeImageAct->setShortcut(Qt::Key_Escape);
 		fullScreenAct->setShortcut(QKeySequence("F"));
 		settingsAction->setShortcut(QKeySequence("P"));
+		autoDetectAct->setShortcut(QKeySequence("A"));
 		exitAction->setShortcut(QKeySequence("Ctrl+Q"));
 		cutAction->setShortcut(QKeySequence("Ctrl+X"));
 		copyAction->setShortcut(QKeySequence("Ctrl+C"));
@@ -1868,6 +1908,7 @@ void Phototonic::openOp()
 			thumbView->selectionModel()->select(idx, QItemSelectionModel::Toggle);
 			thumbView->setCurrentRow(0);
 		}
+printf("Call loadImagefromThumb\n");
 
 		loadImagefromThumb(idx);
 	}
@@ -1918,6 +1959,7 @@ void Phototonic::loadImageFile(QString imageFileName)
 	{
 		imageNameAction->setText(QFileInfo(imageFileName).fileName());
 	}
+printf("End of loadImageFile\n");
 }
 
 void Phototonic::loadImagefromThumb(const QModelIndex &idx)
@@ -1925,6 +1967,96 @@ void Phototonic::loadImagefromThumb(const QModelIndex &idx)
 	thumbView->setCurrentRow(idx.row());
 	loadImageFile(thumbView->thumbViewModel->item(idx.row())->data(thumbView->FileNameRole).toString());
 	thumbView->setImageviewWindowTitle();
+}
+
+/*	defined by LTC	*/
+void Phototonic::loadImageDetected(const QModelIndex &idx)
+{
+	Mat img;
+	FILE* f = 0;
+	char _filename[1024];
+
+	QString qstr_tmp;
+	string filename_str;
+
+	qstr_tmp = thumbView->thumbViewModel->item(idx.row())->data(thumbView->FileNameRole).toString();
+	filename_str = qstr_tmp.toStdString();
+	img = imread(filename_str);
+cout << "filename_str is " << filename_str << endl;
+//	char *p = filename_str.c_str();
+        strcpy(_filename, filename_str.c_str());
+
+	HOGDescriptor hog;
+	hog.setSVMDetector(HOGDescriptor::getDefaultPeopleDetector());
+	namedWindow("people detector", 1);
+
+	for(;;)
+	{
+		printf("333\n");
+		char* filename = _filename;
+//		if(f)
+//		{
+//		    printf("444\n");
+//		    if(!fgets(filename, (int)sizeof(_filename)-2, f))
+//		        break;
+//		    //while(*filename && isspace(*filename))
+//		    //  ++filename;
+//		    if(filename[0] == '#')
+//		        continue;
+//		    int l = (int)strlen(filename);
+//		    while(l > 0 && isspace(filename[l-1]))
+//		        --l;
+//		    filename[l] = '\0';
+//		    img = imread(filename);
+//		}
+		printf("LTC print filename %s:\n", filename);
+		if(!img.data)
+		    continue;
+		
+		fflush(stdout);
+		vector<Rect> found, found_filtered;
+		double t = (double)getTickCount();
+		// run the detector with default parameters. to get a higher hit-rate
+		// (and more false alarms, respectively), decrease the hitThreshold and
+		// groupThreshold (set groupThreshold to 0 to turn off the grouping completely).
+		hog.detectMultiScale(img, found, 0, Size(8,8), Size(32,32), 1.05, 2);
+		t = (double)getTickCount() - t;
+		printf("tdetection time = %gms\n", t*1000./cv::getTickFrequency());
+		size_t i, j;
+		for( i = 0; i < found.size(); i++ )
+		{
+		    Rect r = found[i];
+		    for( j = 0; j < found.size(); j++ )
+		        if( j != i && (r & found[j]) == r)
+		            break;
+		    if( j == found.size() )
+		        found_filtered.push_back(r);
+		}
+		for( i = 0; i < found_filtered.size(); i++ )
+		{
+		    Rect r = found_filtered[i];
+		    // the HOG detector returns slightly larger rectangles than the real objects.
+		    // so we slightly shrink the rectangles to get a nicer output.
+		    r.x += cvRound(r.width*0.1);
+		    r.width = cvRound(r.width*0.8);
+		    r.y += cvRound(r.height*0.07);
+		    r.height = cvRound(r.height*0.8);
+		    rectangle(img, r.tl(), r.br(), cv::Scalar(0,255,0), 3);
+		}
+//		imwrite("/home/daqiuqu/peoDtt.jpg", img);
+		imshow("people detector", img);
+		int c = waitKey(0) & 255;
+		if( c == 'q' || c == 'Q' || !f)
+		    break;
+	}
+	if(f)
+	    fclose(f);
+
+#if 0
+	thumbView->setCurrentRow(idx.row());
+	loadImageFile(thumbView->thumbViewModel->item(idx.row())->data(thumbView->FileNameRole).toString());
+	thumbView->setImageviewWindowTitle();
+#endif
 }
 
 void Phototonic::loadImagefromCli()
@@ -1941,6 +2073,7 @@ void Phototonic::loadImagefromCli()
 	loadImageFile(cliFileName);
 	thumbView->setCurrentIndexByName(cliFileName);
 	setWindowTitle(cliFileName + " - Phototonic");
+printf("End of loadImagefromCli\n");
 }
 
 void Phototonic::slideShow()
@@ -2024,6 +2157,7 @@ void Phototonic::loadNextImage()
 	loadImageFile(thumbView->thumbViewModel->item(nextRow)->data(thumbView->FileNameRole).toString());
 	thumbView->setCurrentRow(nextRow);
 	thumbView->setImageviewWindowTitle();
+printf("End of loadNextImage\n");
 }
 
 void Phototonic::loadPrevImage()
@@ -2119,6 +2253,7 @@ void Phototonic::closeImage()
 
 	if (!needThumbsRefresh)
 		QTimer::singleShot(100, this, SLOT(scrollToLastImage()));
+printf("Endof closeImage\n");
 }
 
 void Phototonic::goBottom()

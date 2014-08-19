@@ -19,11 +19,16 @@
 #include "imageview.h"
 #include "thumbview.h"
 #include "global.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
 
 #define NEW_IMAGE_NAME	"newImage.png"
 #define ROUND(x) ((int) ((x) + 0.5))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
+
+using namespace std;
 
 ImageView::ImageView(QWidget *parent) : QWidget(parent)
 {
@@ -201,6 +206,8 @@ void ImageView::resizeImage()
 	imageLabel->setVisible(true);
 	centerImage(imgSize);
 	busy = false;
+printf("End of resizeImage\n");
+//usleep(1000000);
 }
 
 void ImageView::centerImage(QSize &imgSize)
@@ -499,6 +506,7 @@ void ImageView::colorize()
 
 void ImageView::refresh()
 {
+printf("Entering refresh\n");
 	if (isAnimation)
 		return;
 
@@ -555,6 +563,7 @@ void ImageView::reload()
 	{
 		if (imageReader.size().isValid())
 		{
+printf("displayPixmap 111\n");
 			origImage.load(currentImageFullPath);
 			displayImage = origImage;
 			transform();
@@ -564,20 +573,31 @@ void ImageView::reload()
 				mirror();
 			displayPixmap = QPixmap::fromImage(displayImage);
 		}
-		else
+		else {
 			displayPixmap = QIcon::fromTheme("image-missing", QIcon(":/images/error_image.png")).pixmap(128, 128);
+printf("displayPixmap 222\n");
+		}
+printf("before set Pixmap\n");
 
 		imageLabel->setPixmap(displayPixmap);
 	}
+
+printf("Already showed?\n");
+//usleep(2000000);
 
 	resizeImage();
 }
 
 void ImageView::loadImage(QString &imageFileName)
 {
+printf("Entering loadImage\n");
 	newImage = false;
 	tempDisableResize = false;
 	currentImageFullPath = imageFileName;
+
+string str_tmp;
+str_tmp = imageFileName.toStdString();
+cout << str_tmp << endl;
 
 	if (!GData::keepZoomFactor)
 		GData::imageZoomFactor = 1.0;

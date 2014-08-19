@@ -45,6 +45,7 @@ public slots:
 	void dropOp(Qt::KeyboardModifiers keyMods, bool dirOp, QString cpMvDirPath);
 	void loadImageFile(QString imageFileName);
 	void loadImagefromThumb(const QModelIndex &idx);
+	void loadImageDetected(const QModelIndex &idx);
 	void loadImagefromCli();
 	void closeImage();
 
@@ -55,6 +56,7 @@ private slots:
 	void setIncludeSubFolders();
 	void refreshThumbs(bool noScroll);
 	void showSettings();
+	void showAutoDetect();
 	void toggleFullScreen();
 	void updateActions(QWidget *old, QWidget *now);
 	void changeActionsBySelection(const QItemSelection&, const QItemSelection&);
@@ -135,6 +137,7 @@ private:
 	QMenu *fileMenu;
 	QMenu *editMenu;
 	QMenu *goMenu;
+	QMenu *locMenu;
 	QMenu *sortMenu;
 	QMenu *viewMenu;
 	QMenu *helpMenu;
@@ -218,6 +221,8 @@ private:
 	QAction *goFrwdAction;
 	QAction *goUpAction;
 	QAction *goHomeAction;
+
+	QAction *autoDetectAct;
 
 	QAction *imageNameAction;
 	QAction *slideShowAction;

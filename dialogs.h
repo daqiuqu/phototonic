@@ -19,9 +19,19 @@
 #ifndef DIALOGS_H
 #define DIALOGS_H
 
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+
 #include <QtWidgets>
 #include "thumbview.h"
 #include "imageview.h"
+
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/objdetect/objdetect.hpp"
+#include "opencv2/highgui/highgui.hpp"
+
+using namespace std;
 
 int cpMvFile(bool isCopy, QString &srcFile, QString &srcPath, QString &dstPath, QString &dstDir);
 
@@ -106,6 +116,49 @@ private:
 	QLineEdit *startupDirEdit;
 
 	void setButtonBgColor(QColor &color, QToolButton *button);
+};
+
+/* Added by LTC */
+class AutoDetectDialog : public QDialog
+{
+	Q_OBJECT
+public:
+    AutoDetectDialog(QWidget *parent);
+
+private slots:
+	void autoDetect();
+
+private:
+	QLabel *startTimeLabel;
+	QLineEdit *startTimeEdit;
+	QLabel *endTimeLabel;
+	QLineEdit *endTimeEdit;
+	QLabel *eLocLabel;
+	QLabel *vLocLabel;
+	QLabel *evLocLabel;
+	QLineEdit *eLocEdit;
+	QLineEdit *vLocEdit;
+	QLineEdit *evLocEdit;
+//	QLabel *showImageLabel;
+	QWidget *showImageLabel;
+	QPainter *painter;
+	QPushButton *autoDetectButton;
+	QTimer *timer;
+
+	void imageDetect(string fileName);
+	char coordinate_transformation(float x, float y);
+};
+
+/* Added by LTC */
+class myLabel : public QWidget
+{
+	Q_OBJECT
+public:
+	myLabel();
+private slots:
+	void drawPoint(float x, float y);
+protected:
+	void paintEvent(QPaintEvent *event);
 };
 
 class CropDialog : public QDialog
