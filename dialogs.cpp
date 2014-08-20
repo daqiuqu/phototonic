@@ -299,7 +299,6 @@ AutoDetectDialog::AutoDetectDialog(QWidget *parent) : QDialog(parent)
 	comLocLayout->addWidget(evLocEdit);
 
 	myLabel *showImageLabel = new myLabel;
-//	QPainter painter(showImageLabel);
 
 	QVBoxLayout *mainVbox = new QVBoxLayout;
 	mainVbox->addLayout(timeRangeHbox);
@@ -414,7 +413,6 @@ void AutoDetectDialog::imageDetect(string fileName)
 	Mat img;
 	FILE* f = 0;
 	char _filename[1024];
-	char vLocAll[100];
 	float a[30], b[30];
 
 	string dir("/home/daqiuqu/work/camera_test/");
@@ -467,27 +465,18 @@ void AutoDetectDialog::imageDetect(string fileName)
 		    rectangle(img, r.tl(), r.br(), cv::Scalar(0,255,0), 3);
 
 			// Added for V Loc
-//			char tmpV[30];
 			a[i] = r.x + r.width/2;
 			b[i] = r.y + r.height;
 printf("LTC print before coordinate transformation\n");
 			coordinate_transformation(a[i],b[i]);
-//			tmpV = coordinate_transformation(a[i],b[i]);
-//			sprintf(vLocAll, "%s %s", vLocAll, tmpV);
-//			sprintf(vLocAll, "%s %s", vLocAll, coordinate_transformation(a[i],b[i]));
-//			peoNum = i;
 			peoNum++;
-printf("LTC print after coordinate transformation,i is %d, xPos is %f, yPos is %f, a[i] is %f, b[i] is %f\n",i,  xPos[i], yPos[i], a[i], b[i]);
 		}
-printf("LTC print i is %d\n", i);
 		if (i) {
-printf("LTC print update Flag is 1\n");
 			updateFlag = 1;
 			update();
 		} else
 			updateFlag = 0;
 //		imwrite("/home/daqiuqu/peoDtt.jpg", img);
-//		vLocEdit->setText(vLocAll);
 		imshow("people detector", img);
 //		int c = waitKey(0) & 255;
 		int c = waitKey(1000) & 255;
@@ -516,7 +505,6 @@ printf("LTC print update Flag is 1\n");
 char AutoDetectDialog::coordinate_transformation(float x,float y)
 {	
 printf("LTC print :Entering %s\n", __func__);
-	char enter;
 	CvMat* object_points;
 	CvMat* image_points;
 	CvMat* image_points2;	
@@ -571,27 +559,10 @@ printf("LTC print :Entering %s\n", __func__);
 	xPos[peoNum] = x0;
 	yPos[peoNum] = y0;
 printf("Pos debug peoNum = %d, xPos is %f, yPos is %f\n", peoNum, xPos[peoNum], yPos[peoNum]);
-//	printf("\n¿Õ¼äÆ½Ãæ×ø±ê: ");
-//	printf("[ %6.4f %6.4f ] \n\n",x0 ,y0 );
 	char vLoc[100];
-//	string str;
-//	str = vLocEdit->text().toStdString();
 	sprintf(vLoc, "%s(%6.2f,%6.2f);", qPrintable(vLocEdit->text()), x0, y0);
-//	cout << "vLoc is: " << vLoc << endl;
 	vLocEdit->setText(vLoc);
-//	timer = new QTimer();
-//	connect(timer, SIGNAL(timeout()), &showImageLabel, SLOT(drawPoints(x0 * 10, y0 * 10)));
-//	timer->start(10);
-//	QPainter painter(&myLabel);
-//	painter.setPen(QPen(Qt::blue, 3));
-//	painter.setBrush(QBrush(Qt::black, Qt::CrossPattern));
-//	painter.drawRect(10, 10, 400, 400);
-//	painter.drawPoint(x0 * 10, y0 * 10);
-
 	
-	
-//	scanf("%c",&enter);
-//	scanf("%c",&enter);
 	return *vLoc;
 }
 

@@ -913,7 +913,6 @@ void Phototonic::showSettings()
 	SettingsDialog *dialog = new SettingsDialog(this);
 	if (dialog->exec())
 	{
-printf("show Settings \n");
 		imageView->setPalette(QPalette(GData::backgroundColor));
 		thumbView->setThumbColors();
 		GData::imageZoomFactor = 1.0;
@@ -936,12 +935,10 @@ printf("show Settings \n");
 void Phototonic::showAutoDetect()
 {
 	AutoDetectDialog *dialog = new AutoDetectDialog(this);
-printf("LTC's dialog 111\n");
 	if (dialog->exec())
 	{
 		printf("LTC's dialog exec\n");
 	}
-printf("LTC's dialog 222\n");
 	delete dialog;
 
 }
@@ -1072,7 +1069,6 @@ void Phototonic::thumbsZoomOut()
 
 void Phototonic::zoomOut()
 {
-printf("Entering zoomOut\n");
 	GData::imageZoomFactor -= (GData::imageZoomFactor <= 0.25)? 0 : 0.25;
 	imageView->tempDisableResize = false;
 	imageView->resizeImage();
@@ -1080,7 +1076,6 @@ printf("Entering zoomOut\n");
 
 void Phototonic::zoomIn()
 {
-printf("Entering zoomIn\n");
 	GData::imageZoomFactor += (GData::imageZoomFactor >= 3.25)? 0 : 0.25;
 	imageView->tempDisableResize = false;
 	imageView->resizeImage();
@@ -1088,7 +1083,6 @@ printf("Entering zoomIn\n");
 
 void Phototonic::resetZoom()
 {
-printf("Entering resetZoom\n");
 	GData::imageZoomFactor = 1.0;
 	imageView->tempDisableResize = false;
 	imageView->resizeImage();
@@ -1096,7 +1090,6 @@ printf("Entering resetZoom\n");
 
 void Phototonic::origZoom()
 {
-printf("Entering origZoom\n");
 	GData::imageZoomFactor = 1.0;
 	imageView->tempDisableResize = true;
 	imageView->resizeImage();
@@ -1908,7 +1901,6 @@ void Phototonic::openOp()
 			thumbView->selectionModel()->select(idx, QItemSelectionModel::Toggle);
 			thumbView->setCurrentRow(0);
 		}
-printf("Call loadImagefromThumb\n");
 
 		loadImagefromThumb(idx);
 	}
@@ -1959,7 +1951,6 @@ void Phototonic::loadImageFile(QString imageFileName)
 	{
 		imageNameAction->setText(QFileInfo(imageFileName).fileName());
 	}
-printf("End of loadImageFile\n");
 }
 
 void Phototonic::loadImagefromThumb(const QModelIndex &idx)
@@ -1992,7 +1983,6 @@ cout << "filename_str is " << filename_str << endl;
 
 	for(;;)
 	{
-		printf("333\n");
 		char* filename = _filename;
 //		if(f)
 //		{
@@ -2073,7 +2063,6 @@ void Phototonic::loadImagefromCli()
 	loadImageFile(cliFileName);
 	thumbView->setCurrentIndexByName(cliFileName);
 	setWindowTitle(cliFileName + " - Phototonic");
-printf("End of loadImagefromCli\n");
 }
 
 void Phototonic::slideShow()
@@ -2157,7 +2146,6 @@ void Phototonic::loadNextImage()
 	loadImageFile(thumbView->thumbViewModel->item(nextRow)->data(thumbView->FileNameRole).toString());
 	thumbView->setCurrentRow(nextRow);
 	thumbView->setImageviewWindowTitle();
-printf("End of loadNextImage\n");
 }
 
 void Phototonic::loadPrevImage()
@@ -2253,7 +2241,6 @@ void Phototonic::closeImage()
 
 	if (!needThumbsRefresh)
 		QTimer::singleShot(100, this, SLOT(scrollToLastImage()));
-printf("Endof closeImage\n");
 }
 
 void Phototonic::goBottom()
