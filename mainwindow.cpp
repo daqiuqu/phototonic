@@ -293,8 +293,10 @@ void Phototonic::createActions()
 	connect(settingsAction, SIGNAL(triggered()), this, SLOT(showSettings()));
 
 	autoDetectAct = new QAction(tr("Auto Detect"), this);
-//	settingsAction->setIcon(QIcon::fromTheme("document-properties", QIcon(":/images/settings.png")));
 	connect(autoDetectAct, SIGNAL(triggered()), this, SLOT(showAutoDetect()));
+
+	elocDetectAct = new QAction(tr("Eloc Detect"), this);
+	connect(elocDetectAct, SIGNAL(triggered()), this, SLOT(showElocDetect()));
 
 	exitAction = new QAction(tr("Exit"), this);
 	connect(exitAction, SIGNAL(triggered()), this, SLOT(close()));
@@ -585,6 +587,7 @@ void Phototonic::createMenus()
 
 	locMenu = menuBar()->addMenu(tr("&PeopleLoc"));
 	locMenu->addAction(autoDetectAct);
+	locMenu->addAction(elocDetectAct);
 
 	viewMenu = menuBar()->addMenu(tr("&View"));
 	viewMenu->addAction(thumbsZoomInAct);
@@ -935,6 +938,17 @@ void Phototonic::showSettings()
 void Phototonic::showAutoDetect()
 {
 	AutoDetectDialog *dialog = new AutoDetectDialog(this);
+	if (dialog->exec())
+	{
+		printf("LTC's dialog exec\n");
+	}
+	delete dialog;
+
+}
+
+void Phototonic::showElocDetect()
+{
+	ElocDetectDialog *dialog = new ElocDetectDialog(this);
 	if (dialog->exec())
 	{
 		printf("LTC's dialog exec\n");
@@ -1674,6 +1688,7 @@ void Phototonic::loadShortcuts()
 	GData::actionKeys[fullScreenAct->text()] = fullScreenAct;
 	GData::actionKeys[settingsAction->text()] = settingsAction;
 	GData::actionKeys[autoDetectAct->text()] = autoDetectAct;
+	GData::actionKeys[elocDetectAct->text()] = elocDetectAct;
 	GData::actionKeys[exitAction->text()] = exitAction;
 	GData::actionKeys[thumbsZoomInAct->text()] = thumbsZoomInAct;
 	GData::actionKeys[thumbsZoomOutAct->text()] = thumbsZoomOutAct;
@@ -1741,6 +1756,7 @@ void Phototonic::loadShortcuts()
 		fullScreenAct->setShortcut(QKeySequence("F"));
 		settingsAction->setShortcut(QKeySequence("P"));
 		autoDetectAct->setShortcut(QKeySequence("A"));
+		elocDetectAct->setShortcut(QKeySequence("E"));
 		exitAction->setShortcut(QKeySequence("Ctrl+Q"));
 		cutAction->setShortcut(QKeySequence("Ctrl+X"));
 		copyAction->setShortcut(QKeySequence("Ctrl+C"));

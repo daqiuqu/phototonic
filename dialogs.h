@@ -24,6 +24,8 @@
 #include <stdlib.h>
 
 #include <QtWidgets>
+#include <QComboBox>
+#include <QtNetwork>
 #include "thumbview.h"
 #include "imageview.h"
 
@@ -149,6 +151,83 @@ private:
 	char coordinate_transformation(float x, float y);
 };
 
+/* Added by LTC */
+class ElocDetectDialog : public QDialog
+{
+	Q_OBJECT;
+public:
+	ElocDetectDialog(QWidget *parent);
+
+private slots:
+	void elocDetect();
+	void setClient();
+//	void acceptConnection();
+//	void readClient();
+	void timerUpdate();
+	void onChanged1(int);
+	void onChanged2(int);
+	void onChanged3(int);
+	void onChanged4(int);
+
+private:
+//	QLineEdit *firstRouterEdit;
+//	QLineEdit *secondRouterEdit;
+//	QLineEdit *thirdRouterEdit;
+//	QLineEdit *fourthRouterEdit;
+	QComboBox *firstRouterBox;
+	QComboBox *secondRouterBox;
+	QComboBox *thirdRouterBox;
+	QComboBox *fourthRouterBox;
+
+//	QLineEdit *firstClientEdit;
+	QTextEdit *firstClientEdit;
+	QTextEdit *secondClientEdit;
+	QTextEdit *thirdClientEdit;
+	QTextEdit *fourthClientEdit;
+
+	time_t start_time;
+
+//	QTcpServer *server;
+//	QTcpSocket *clientConnection;
+	QTimer *clearTimer;
+
+public:
+//	QString room1_str, room2_str, room3_str, room4_str;
+//	QString room1_client_str, room2_client_str, room3_client_str, room4_client_str;
+
+};
+
+/* Added by LTC */
+class QElocServer : public QTcpServer
+{
+	Q_OBJECT
+public:
+	QElocServer(QObject *parent = 0);
+
+private slots:
+	void readOverToDialog();
+
+private:
+	void incomingConnection(qintptr socketDescriptor);
+
+signals:
+	void error(QTcpSocket::SocketError socketError);
+	void readOver2();
+};
+
+/* Added by LTC */
+class QElocClient : public QTcpSocket
+{
+	Q_OBJECT
+public:
+	QElocClient(QObject *parent = 0);
+
+signals:
+	void readOver();
+
+private slots:
+	void readClient();
+};
 /* Added by LTC */
 class myLabel : public QWidget
 {

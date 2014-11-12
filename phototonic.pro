@@ -4,6 +4,7 @@ INCLUDEPATH += .
 INCLUDEPATH += /usr/local/include
 LIBS += -L/usr/local/lib -lexiv2
 QT += widgets
+QT += network
 
 # Input
 HEADERS += dialogs.h mainwindow.h thumbview.h imageview.h global.h infoview.h

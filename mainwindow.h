@@ -57,6 +57,7 @@ private slots:
 	void refreshThumbs(bool noScroll);
 	void showSettings();
 	void showAutoDetect();
+	void showElocDetect();
 	void toggleFullScreen();
 	void updateActions(QWidget *old, QWidget *now);
 	void changeActionsBySelection(const QItemSelection&, const QItemSelection&);
@@ -223,6 +224,7 @@ private:
 	QAction *goHomeAction;
 
 	QAction *autoDetectAct;
+	QAction *elocDetectAct;
 
 	QAction *imageNameAction;
 	QAction *slideShowAction;

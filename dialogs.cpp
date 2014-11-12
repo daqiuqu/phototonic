@@ -19,6 +19,9 @@
 #include "global.h"
 
 #include <unistd.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/objdetect/objdetect.hpp"
@@ -32,6 +35,18 @@ using namespace cv;
 int updateFlag = 0;
 int peoNum = 0;
 float xPos[10], yPos[10];
+
+QString room1_str, room2_str, room3_str, room4_str;
+QString room1_client_str, room2_client_str, room3_client_str, room4_client_str;
+
+#define ROOM1_STR "00:0f:e2:78:cf:00"
+#define ROOM2_STR "00:0f:e2:78:cf:01"
+#define ROOM3_STR "00:0f:e2:78:cf:02"
+#define ROOM4_STR "00:0f:e2:78:cf:03"
+#define ROOM5_STR "00:0c:43:30:62:01"
+#define ROOM6_STR "d8:42:ac:41:55:1e"
+#define ROOM7_STR ""
+#define ROOM8_STR ""
 
 CpMvDialog::CpMvDialog(QWidget *parent) : QDialog(parent)
 {
@@ -231,6 +246,122 @@ void SettingsDialog::setActionKeyText(const QString &text)
 	keyLine->setText(GData::actionKeys.value(text)->shortcut().toString());
 }
 
+ElocDetectDialog::ElocDetectDialog(QWidget *parent) : QDialog(parent)
+{
+	setWindowTitle(tr("ElocDetect"));
+
+	room1_str = room2_str = room3_str = room4_str = "";
+	room1_client_str = room2_client_str = room3_client_str = room4_client_str = "";
+
+//	room1_str = room2_str = room3_str = room4_str = "";
+//	room1_client_str = room2_client_str = room3_client_str = room4_client_str = "";
+//	room1_str = "00:0f:e2:78:cf:00";
+//	room2_str = "00:0f:e2:78:cf:01";
+//	room3_str = "00:0f:e2:78:cf:02";
+//	room4_str = "00:0f:e2:78:cf:03";
+//	room1_str = ROOM1_STR;
+//	room2_str = ROOM2_STR;
+//	room3_str = ROOM3_STR;
+//	room4_str = ROOM4_STR;
+//	room5_str = ROOM5_STR;
+//	room6_str = ROOM6_STR;
+
+	int height = parent->size().height() - 50;
+	if (height > 800)
+		height = 800;
+	resize(600, height);
+
+	QVBoxLayout *HeadVbox = new QVBoxLayout;
+
+	QHBoxLayout *firstHbox = new QHBoxLayout;
+	QHBoxLayout *secondHbox = new QHBoxLayout;
+	QHBoxLayout *thirdHbox = new QHBoxLayout;
+	QHBoxLayout *fourthHbox = new QHBoxLayout;
+
+//	firstRouterEdit = new QLineEdit;
+//	secondRouterEdit = new QLineEdit;
+//	thirdRouterEdit = new QLineEdit;
+//	fourthRouterEdit = new QLineEdit;
+
+	firstRouterBox = new QComboBox(this);
+	secondRouterBox = new QComboBox(this);
+	thirdRouterBox = new QComboBox(this);
+	fourthRouterBox = new QComboBox(this);
+
+	firstRouterBox->addItem(ROOM1_STR);
+	firstRouterBox->addItem(ROOM2_STR);
+	firstRouterBox->addItem(ROOM3_STR);
+	firstRouterBox->addItem(ROOM4_STR);
+	firstRouterBox->addItem(ROOM5_STR);
+	firstRouterBox->addItem(ROOM6_STR);
+
+	secondRouterBox->addItem(ROOM1_STR);
+	secondRouterBox->addItem(ROOM2_STR);
+	secondRouterBox->addItem(ROOM3_STR);
+	secondRouterBox->addItem(ROOM4_STR);
+	secondRouterBox->addItem(ROOM5_STR);
+	secondRouterBox->addItem(ROOM6_STR);
+
+	thirdRouterBox->addItem(ROOM1_STR);
+	thirdRouterBox->addItem(ROOM2_STR);
+	thirdRouterBox->addItem(ROOM3_STR);
+	thirdRouterBox->addItem(ROOM4_STR);
+	thirdRouterBox->addItem(ROOM5_STR);
+	thirdRouterBox->addItem(ROOM6_STR);
+
+	fourthRouterBox->addItem(ROOM1_STR);
+	fourthRouterBox->addItem(ROOM2_STR);
+	fourthRouterBox->addItem(ROOM3_STR);
+	fourthRouterBox->addItem(ROOM4_STR);
+	fourthRouterBox->addItem(ROOM5_STR);
+	fourthRouterBox->addItem(ROOM6_STR);
+
+	connect(firstRouterBox, SIGNAL(currentIndexChanged(int)), this, SLOT(onChanged1(int)));
+	connect(secondRouterBox, SIGNAL(currentIndexChanged(int)), this, SLOT(onChanged2(int)));
+	connect(thirdRouterBox, SIGNAL(currentIndexChanged(int)), this, SLOT(onChanged3(int)));
+	connect(fourthRouterBox, SIGNAL(currentIndexChanged(int)), this, SLOT(onChanged4(int)));
+
+//	firstRouterEdit->setText(room1_str);
+//	secondRouterEdit->setText(room2_str);
+//	thirdRouterEdit->setText(room3_str);
+//	fourthRouterEdit->setText(room4_str);
+
+//	firstClientEdit = new QLineEdit;
+	firstClientEdit = new QTextEdit;
+	secondClientEdit = new QTextEdit;
+	thirdClientEdit = new QTextEdit;
+	fourthClientEdit = new QTextEdit;
+
+	QPushButton *elocDetectButton = new QPushButton(tr("Eloc Detect"));
+	connect(elocDetectButton, SIGNAL(clicked()), this, SLOT(elocDetect()));
+
+//	QString str = "188:30:8a:3f:3f:a300:0f:e2:78:cf:0100:0f:e2:78:cf:03";
+//	firstRouterEdit->setText(str.mid(1, 17));
+//	firstClientEdit->setText(str.mid(18, 17) + "\n" + str.mid(35, 17));
+//	firstHbox->addWidget(firstRouterEdit);
+	firstHbox->addWidget(firstRouterBox);
+	firstHbox->addWidget(firstClientEdit);
+
+//	secondHbox->addWidget(secondRouterEdit);
+	secondHbox->addWidget(secondRouterBox);
+	secondHbox->addWidget(secondClientEdit);
+
+//	thirdHbox->addWidget(thirdRouterEdit);
+	thirdHbox->addWidget(thirdRouterBox);
+	thirdHbox->addWidget(thirdClientEdit);
+
+//	fourthHbox->addWidget(fourthRouterEdit);
+	fourthHbox->addWidget(fourthRouterBox);
+	fourthHbox->addWidget(fourthClientEdit);
+
+	HeadVbox->addLayout(firstHbox);
+	HeadVbox->addLayout(secondHbox);
+	HeadVbox->addLayout(thirdHbox);
+	HeadVbox->addLayout(fourthHbox);
+	HeadVbox->addWidget(elocDetectButton);
+	setLayout(HeadVbox);
+}
+
 /* added by LTC */
 AutoDetectDialog::AutoDetectDialog(QWidget *parent) : QDialog(parent)
 {
@@ -346,6 +477,334 @@ void myLabel::drawPoint(float x, float y)
 	painter.setPen(QPen(Qt::blue, 3));
 	painter.drawPoint(x, y);
 }
+
+/* Added by LTC */
+QElocClient::QElocClient(QObject *parent)
+	: QTcpSocket(parent)
+{
+	connect(this, SIGNAL(readyRead()), this, SLOT(readClient()));
+	connect(this, SIGNAL(disconnected()), this, SLOT(deleteLater()));
+}
+
+/* Added by LTC */
+QElocServer::QElocServer(QObject *parent)
+	: QTcpServer(parent)
+{
+//	listen(QHostAddress::Any, 9999);
+}
+
+/* Added by LTC */
+void QElocServer::incomingConnection(qintptr socketDescriptor)
+{
+printf("LTC print before new client socket\n");
+	QElocClient *socket = new QElocClient(this);
+	connect(socket, SIGNAL(readOver()), this, SLOT(readOverToDialog()));
+printf("LTC print after new client socket\n");
+	if (!socket->setSocketDescriptor(socketDescriptor)) {
+printf("LTC print error new client socket\n");
+		emit error(socket->error());
+		return;
+	}
+}
+
+void QElocServer::readOverToDialog()
+{
+	emit readOver2();
+}
+
+/* added by LTC*/
+void ElocDetectDialog::elocDetect()
+{
+//	start_time = time(NULL);
+
+	QTimer *clearTimer = new QTimer(this);
+	connect(clearTimer, SIGNAL(timeout()), this, SLOT(timerUpdate()));
+	clearTimer->start(2000);
+
+#if 0
+	server = new QTcpServer();
+	server->listen(QHostAddress::Any, 9999);
+	connect(server, SIGNAL(newConnection()), this, SLOT(acceptConnection()));
+#endif
+	QElocServer *server = new QElocServer(this);
+	connect(server, SIGNAL(readOver2()), this, SLOT(setClient()));
+	if (!server->listen(QHostAddress::Any, 9999)) {
+		QMessageBox::critical(this, tr("Eloc Server"),
+				tr("Unable To start the server: %d")
+				.arg(server->errorString()));
+		server->close();
+	}
+#if 0
+	QElocServer server;
+	if (!server.listen(QHostAddress::Any, 9999)) {
+		QMessageBox::critical(this, tr("Eloc Server"),
+				tr("Unable To start the server: %d")
+				.arg(server.errorString()));
+		server.close();
+	}
+#endif
+printf("LTC print after connect server\n");
+}
+#if 0
+
+void ElocDetectDialog::acceptConnection()
+{
+	clientConnection = server->nextPendingConnection();
+	connect(clientConnection, SIGNAL(readyRead()), this, SLOT(readClient()));
+printf("LTC print after connect client\n");
+}
+#endif
+
+void ElocDetectDialog::onChanged1(int index)
+{
+	switch (index) {
+		case 0:{
+			room1_str = ROOM1_STR;
+			cout << "room0:" << room1_str.toStdString() << endl;
+			break;
+		}
+		case 1:{
+			room1_str = ROOM2_STR;
+			cout << "room1:" << room1_str.toStdString() << endl;
+			break;
+		}
+		case 2:{
+			room1_str = ROOM3_STR;
+			cout << "room2:" << room1_str.toStdString() << endl;
+			break;
+		}
+		case 3:{
+			room1_str = ROOM4_STR;
+			cout << "room3:" << room1_str.toStdString() << endl;
+			break;
+		}
+		case 4:{
+			room1_str = ROOM5_STR;
+			cout << "room4:" << room1_str.toStdString() << endl;
+			break;
+		}
+		case 5:{
+			room1_str = ROOM6_STR;
+			cout << "room5:" << room1_str.toStdString() << endl;
+			break;
+		}
+	}
+}
+
+void ElocDetectDialog::onChanged2(int index)
+{
+	switch (index) {
+		case 0:{
+			room2_str = ROOM1_STR;
+			cout << "room0:" << room1_str.toStdString() << endl;
+			break;
+		}
+		case 1:{
+			room2_str = ROOM2_STR;
+			cout << "room1:" << room1_str.toStdString() << endl;
+			break;
+		}
+		case 2:{
+			room2_str = ROOM3_STR;
+			cout << "room2:" << room1_str.toStdString() << endl;
+			break;
+		}
+		case 3:{
+			room2_str = ROOM4_STR;
+			cout << "room3:" << room1_str.toStdString() << endl;
+			break;
+		}
+		case 4:{
+			room2_str = ROOM5_STR;
+			cout << "room4:" << room1_str.toStdString() << endl;
+			break;
+		}
+		case 5:{
+			room2_str = ROOM6_STR;
+			cout << "room5:" << room1_str.toStdString() << endl;
+			break;
+		}
+	}
+}
+
+void ElocDetectDialog::onChanged3(int index)
+{
+	switch (index) {
+		case 0:{
+			room3_str = ROOM1_STR;
+			cout << "room0:" << room1_str.toStdString() << endl;
+			break;
+		}
+		case 1:{
+			room3_str = ROOM2_STR;
+			cout << "room1:" << room1_str.toStdString() << endl;
+			break;
+		}
+		case 2:{
+			room3_str = ROOM3_STR;
+			cout << "room2:" << room1_str.toStdString() << endl;
+			break;
+		}
+		case 3:{
+			room3_str = ROOM4_STR;
+			cout << "room3:" << room1_str.toStdString() << endl;
+			break;
+		}
+		case 4:{
+			room3_str = ROOM5_STR;
+			cout << "room4:" << room1_str.toStdString() << endl;
+			break;
+		}
+		case 5:{
+			room3_str = ROOM6_STR;
+			cout << "room5:" << room1_str.toStdString() << endl;
+			break;
+		}
+	}
+}
+
+void ElocDetectDialog::onChanged4(int index)
+{
+	switch (index) {
+		case 0:{
+			room4_str = ROOM1_STR;
+			cout << "room0:" << room1_str.toStdString() << endl;
+			break;
+		}
+		case 1:{
+			room4_str = ROOM2_STR;
+			cout << "room1:" << room1_str.toStdString() << endl;
+			break;
+		}
+		case 2:{
+			room4_str = ROOM3_STR;
+			cout << "room2:" << room1_str.toStdString() << endl;
+			break;
+		}
+		case 3:{
+			room4_str = ROOM4_STR;
+			cout << "room3:" << room1_str.toStdString() << endl;
+			break;
+		}
+		case 4:{
+			room4_str = ROOM5_STR;
+			cout << "room4:" << room1_str.toStdString() << endl;
+			break;
+		}
+		case 5:{
+			room4_str = ROOM6_STR;
+			cout << "room5:" << room1_str.toStdString() << endl;
+			break;
+		}
+	}
+}
+
+void ElocDetectDialog::timerUpdate()
+{
+cout << "timer update " << endl;
+	room1_client_str = room2_client_str = room3_client_str = room4_client_str = "";
+	setClient();
+}
+#if 1
+
+void ElocDetectDialog::setClient()
+{
+printf("set Client for dialog\n");
+	firstClientEdit->setText(room1_client_str);
+	secondClientEdit->setText(room2_client_str);
+	thirdClientEdit->setText(room3_client_str);
+	fourthClientEdit->setText(room4_client_str);
+
+	update();
+}
+#endif
+
+void QElocClient::readClient()
+{
+cout << "socket recieve :" << endl;
+#if 0
+	QString str = clientConnection->readAll();
+	QString str_router = str.mid(18, 17);
+	QString str_client = str.mid(1, 17);
+	if (str_router == room1_str)
+		if (room1_client_str.indexOf(str_client) < 0)
+			room1_client_str += "\n" + str_client;
+	if (str_router == room2_str)
+		if (room2_client_str.indexOf(str_client) < 0)
+			room2_client_str += "\n" + str_client;
+	if (str_router == room3_str)
+		if (room3_client_str.indexOf(str_client) < 0)
+			room3_client_str += "\n" + str_client;
+	if (str_router == room4_str)
+		if (room4_client_str.indexOf(str_client) < 0)
+			room4_client_str += "\n" + str_client;
+cout << "socket recieve :" << (str.toStdString()) << endl;
+	setClient();
+#endif
+	QString str = "";
+	QTextStream in(this);
+//	in.setVersion(QDataStream::Qt_5_3);
+	in >> str;
+	QString str_router = str.mid(18, 17);
+	QString str_client = str.mid(1, 17);
+	if (str_router == room1_str)
+		if (room1_client_str.indexOf(str_client) < 0)
+			room1_client_str += "\n" + str_client;
+	if (str_router == room2_str)
+		if (room2_client_str.indexOf(str_client) < 0)
+			room2_client_str += "\n" + str_client;
+	if (str_router == room3_str)
+		if (room3_client_str.indexOf(str_client) < 0)
+			room3_client_str += "\n" + str_client;
+	if (str_router == room4_str)
+		if (room4_client_str.indexOf(str_client) < 0)
+			room4_client_str += "\n" + str_client;
+cout << "socket recieve :" << (str.toStdString()) << endl;
+//	ElocDetectDialog::setClient();
+	emit readOver();
+cout << "socket recieve :" << (str.toStdString()) << endl;
+}
+
+#if 0
+void ElocDetectDialog::readClient()
+{
+	time_t lt;
+cout << "socket recieve :" << endl;
+	QString str = clientConnection->readAll();
+	QString str_router = str.mid(18, 17);
+	QString str_client = str.mid(1, 17);
+	if (str_router == room1_str)
+		if (room1_client_str.indexOf(str_client) < 0)
+			room1_client_str += "\n" + str_client;
+	if (str_router == room2_str)
+		if (room2_client_str.indexOf(str_client) < 0)
+			room2_client_str += "\n" + str_client;
+	if (str_router == room3_str)
+		if (room3_client_str.indexOf(str_client) < 0)
+			room3_client_str += "\n" + str_client;
+	if (str_router == room4_str)
+		if (room4_client_str.indexOf(str_client) < 0)
+			room4_client_str += "\n" + str_client;
+cout << "socket recieve :" << (str.toStdString()) << endl;
+//	firstRouterEdit->setText(str.mid(1, 17) + "\n" + str.mid(18, 17));
+#if 0
+	lt = time(NULL);
+	if (lt - start_time >= 2) {
+		start_time = lt;
+		room1_client_str = room2_client_str = room3_client_str = room4_client_str = "";
+	} else {
+		firstClientEdit->setText(room1_client_str);
+		secondClientEdit->setText(room2_client_str);
+		thirdClientEdit->setText(room3_client_str);
+		fourthClientEdit->setText(room4_client_str);
+
+		update();
+	}
+#endif
+	setClient();
+cout << "socket recieve :" << (str.toStdString()) << endl;
+}
+#endif
 
 /* added by LTC */
 void AutoDetectDialog::autoDetect()
