@@ -483,14 +483,19 @@ QElocClient::QElocClient(QObject *parent)
 	: QTcpSocket(parent)
 {
 	connect(this, SIGNAL(readyRead()), this, SLOT(readClient()));
-	connect(this, SIGNAL(disconnected()), this, SLOT(deleteLater()));
+	connect(this, SIGNAL(disconnected()), this, SLOT(clearClient()));
+}
+
+void QElocClient::clearClient()
+{
+	room1_client_str = room2_client_str = room3_client_str = room4_client_str = "";
+	deleteLater();
 }
 
 /* Added by LTC */
 QElocServer::QElocServer(QObject *parent)
 	: QTcpServer(parent)
 {
-//	listen(QHostAddress::Any, 9999);
 }
 
 /* Added by LTC */
@@ -505,6 +510,8 @@ printf("LTC print error new client socket\n");
 		emit error(socket->error());
 		return;
 	}
+	if (!socket->waitForReadyRead(2000))
+		room1_client_str = room2_client_str = room3_client_str = room4_client_str = "";
 }
 
 void QElocServer::readOverToDialog()
@@ -702,8 +709,9 @@ void ElocDetectDialog::onChanged4(int index)
 void ElocDetectDialog::timerUpdate()
 {
 cout << "timer update " << endl;
-	room1_client_str = room2_client_str = room3_client_str = room4_client_str = "";
-	setClient();
+//	room1_client_str = room2_client_str = room3_client_str = room4_client_str = "";
+	if (room1_client_str == "" && room2_client_str == "" && room3_client_str == "" && room4_client_str == "")
+		setClient();
 }
 #if 1
 
@@ -747,18 +755,47 @@ cout << "socket recieve :" << (str.toStdString()) << endl;
 	in >> str;
 	QString str_router = str.mid(18, 17);
 	QString str_client = str.mid(1, 17);
-	if (str_router == room1_str)
+
+	if (str_router == room1_str) {
 		if (room1_client_str.indexOf(str_client) < 0)
 			room1_client_str += "\n" + str_client;
-	if (str_router == room2_str)
+		if (room2_client_str.indexOf(str_client) >= 0)
+			room2_client_str.remove("\n" + str_client, Qt::CaseSensitive);
+		if (room3_client_str.indexOf(str_client) >= 0)
+			room3_client_str.remove("\n" + str_client, Qt::CaseSensitive);
+		if (room4_client_str.indexOf(str_client) >= 0)
+			room4_client_str.remove("\n" + str_client, Qt::CaseSensitive);
+	}
+	if (str_router == room2_str) {
 		if (room2_client_str.indexOf(str_client) < 0)
 			room2_client_str += "\n" + str_client;
-	if (str_router == room3_str)
+		if (room1_client_str.indexOf(str_client) >= 0)
+			room1_client_str.remove("\n" + str_client, Qt::CaseSensitive);
+		if (room3_client_str.indexOf(str_client) >= 0)
+			room3_client_str.remove("\n" + str_client, Qt::CaseSensitive);
+		if (room4_client_str.indexOf(str_client) >= 0)
+			room4_client_str.remove("\n" + str_client, Qt::CaseSensitive);
+	}
+	if (str_router == room3_str) {
 		if (room3_client_str.indexOf(str_client) < 0)
 			room3_client_str += "\n" + str_client;
-	if (str_router == room4_str)
+		if (room1_client_str.indexOf(str_client) >= 0)
+			room1_client_str.remove("\n" + str_client, Qt::CaseSensitive);
+		if (room2_client_str.indexOf(str_client) >= 0)
+			room2_client_str.remove("\n" + str_client, Qt::CaseSensitive);
+		if (room4_client_str.indexOf(str_client) >= 0)
+			room4_client_str.remove("\n" + str_client, Qt::CaseSensitive);
+	}
+	if (str_router == room4_str) {
 		if (room4_client_str.indexOf(str_client) < 0)
 			room4_client_str += "\n" + str_client;
+		if (room1_client_str.indexOf(str_client) >= 0)
+			room1_client_str.remove("\n" + str_client, Qt::CaseSensitive);
+		if (room2_client_str.indexOf(str_client) >= 0)
+			room2_client_str.remove("\n" + str_client, Qt::CaseSensitive);
+		if (room3_client_str.indexOf(str_client) >= 0)
+			room3_client_str.remove("\n" + str_client, Qt::CaseSensitive);
+	}
 cout << "socket recieve :" << (str.toStdString()) << endl;
 //	ElocDetectDialog::setClient();
 	emit readOver();

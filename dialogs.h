@@ -191,7 +191,6 @@ private:
 //	QTcpSocket *clientConnection;
 	QTimer *clearTimer;
 
-public:
 //	QString room1_str, room2_str, room3_str, room4_str;
 //	QString room1_client_str, room2_client_str, room3_client_str, room4_client_str;
 
@@ -224,9 +223,11 @@ public:
 
 signals:
 	void readOver();
+	void deleteClient();
 
 private slots:
 	void readClient();
+	void clearClient();
 };
 /* Added by LTC */
 class myLabel : public QWidget
