@@ -392,6 +392,12 @@ AutoDetectDialog::AutoDetectDialog(QWidget *parent) : QDialog(parent)
 	QPushButton *autoDetectButton = new QPushButton(tr("Auto Detect"));
 	connect(autoDetectButton, SIGNAL(clicked()), this, SLOT(autoDetect()));
 
+	QPushButton *realTimeDetectButton = new QPushButton(tr("Real Time"));
+	connect(realTimeDetectButton, SIGNAL(clicked()), this, SLOT(realTimeDetect()));
+
+	QPushButton *stopDetectButton = new QPushButton(tr("STOP"));
+	connect(stopDetectButton, SIGNAL(clicked()), this, SLOT(stopDetect()));
+
 	timeRangeHbox->addWidget(startTimeLabel, 0, Qt::AlignLeft);
 	timeRangeHbox->addWidget(startTimeEdit);
 	timeRangeHbox->addStretch(1);
@@ -399,6 +405,8 @@ AutoDetectDialog::AutoDetectDialog(QWidget *parent) : QDialog(parent)
 	timeRangeHbox->addWidget(endTimeEdit);
 	timeRangeHbox->addStretch(1);
 	timeRangeHbox->addWidget(autoDetectButton);
+	timeRangeHbox->addWidget(realTimeDetectButton);
+	timeRangeHbox->addWidget(stopDetectButton);
 
 	QLabel *eLocLabel = new QLabel(tr("E-signal Location:"));
 	eLocEdit = new QLineEdit;
@@ -844,6 +852,51 @@ cout << "socket recieve :" << (str.toStdString()) << endl;
 #endif
 
 /* added by LTC */
+void AutoDetectDialog::realTimeDetect()
+{
+//	QTimer *snapshotTimer = new QTimer(this);
+	snapshotTimer = new QTimer(this);
+	cout << "after new in realTimeDetect" << endl;
+	connect(snapshotTimer, SIGNAL(timeout()), this, SLOT(getSnapshot()));
+	snapshotTimer->start(1000);
+	cout << "after timer start" << endl;
+//	realTimeDetectButton->setEnabled(false);
+//	cout << "after set button false" << endl;
+}
+
+/* added by LTC */
+void AutoDetectDialog::getSnapshot()
+{
+	cout << "before start exec.sh." << endl;
+//	QProcess *process = new QProcess;
+	process = new QProcess(this);
+	connect(process, SIGNAL(readyReadStandardOutput()),
+			this, SLOT(outCheck()));
+	process->start("/home/daqiuqu/work/camera_test/a.out 211.87.235.173");
+	process->waitForFinished(200);
+	if (process) {
+		process->close();
+		delete process;
+		process = 0;
+	}
+	cout << "after start exec.sh." << endl;
+}
+
+/* added by LTC */
+void AutoDetectDialog::outCheck()
+{
+	QString output = process->readAllStandardOutput();
+	cout << output.toStdString() << endl;
+	imageDetect(output.toStdString());
+}
+
+/* added by LTC */
+void AutoDetectDialog::stopDetect()
+{
+	snapshotTimer->stop();
+}
+
+/* added by LTC */
 void AutoDetectDialog::autoDetect()
 {
 #if 1
@@ -856,7 +909,8 @@ void AutoDetectDialog::autoDetect()
 	int time_legal = 1;
 
 	QDir dir;
-	dir.setPath("/home/daqiuqu/work/camera_test");
+//	dir.setPath("/home/daqiuqu/work/camera_test");
+	dir.setPath("/home/daqiuqu/work/phototonic/snapshot");
 	dir.setFilter(QDir::Files | QDir::Hidden | QDir::NoSymLinks);
 	dir.setSorting(QDir::Size | QDir::Reversed);
 	QFileInfoList list = dir.entryInfoList();
@@ -911,7 +965,8 @@ void AutoDetectDialog::imageDetect(string fileName)
 	char _filename[1024];
 	float a[30], b[30];
 
-	string dir("/home/daqiuqu/work/camera_test/");
+//	string dir("/home/daqiuqu/work/camera_test/");
+	string dir("/home/daqiuqu/work/phototonic/");
 	string fileNameFull = dir + fileName;
 
 	img = imread(fileNameFull);

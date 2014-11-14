@@ -26,6 +26,7 @@
 #include <QtWidgets>
 #include <QComboBox>
 #include <QtNetwork>
+#include <QProcess>
 #include "thumbview.h"
 #include "imageview.h"
 
@@ -129,6 +130,10 @@ public:
 
 private slots:
 	void autoDetect();
+	void realTimeDetect();
+	void getSnapshot();
+	void stopDetect();
+	void outCheck();
 
 private:
 	QLabel *startTimeLabel;
@@ -145,7 +150,11 @@ private:
 	QWidget *showImageLabel;
 	QPainter *painter;
 	QPushButton *autoDetectButton;
-	QTimer *timer;
+	QPushButton *realTimeDetectButton;
+	QPushButton *stopDetectButton;
+//	QTimer *timer;
+	QTimer *snapshotTimer;
+	QProcess *process;
 
 	void imageDetect(string fileName);
 	char coordinate_transformation(float x, float y);
