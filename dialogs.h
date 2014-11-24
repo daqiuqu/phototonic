@@ -132,10 +132,15 @@ private slots:
 	void autoDetect();
 	void realTimeDetect();
 	void getSnapshot();
+	void getESignal();
 	void stopDetect();
 	void outCheck();
 
 private:
+	QRadioButton *searchByRoomButton;
+	QRadioButton *searchByClientButton;
+	QComboBox *roomBox;
+	QComboBox *clientBox;
 	QLabel *startTimeLabel;
 	QLineEdit *startTimeEdit;
 	QLabel *endTimeLabel;
@@ -158,6 +163,7 @@ private:
 
 	void imageDetect(string fileName);
 	char coordinate_transformation(float x, float y);
+	void setupESigServer();
 };
 
 /* Added by LTC */
@@ -204,6 +210,34 @@ private:
 //	QString room1_client_str, room2_client_str, room3_client_str, room4_client_str;
 
 };
+/* Added by LTC */
+class QESigServer : public QTcpServer
+{
+	Q_OBJECT
+public:
+	QESigServer(QObject *parent = 0);
+
+private:
+	void incomingConnection(qintptr socketDescriptor);
+
+signals:
+	void error(QTcpSocket::SocketError socketError);
+};
+
+/* Added by LTC */
+class QESigClient : public QTcpSocket
+{
+	Q_OBJECT
+public:
+	QESigClient(QObject *parent = 0);
+
+signals:
+	void deleteClient();
+
+private slots:
+	void readClient();
+	void clearClient();
+};
 
 /* Added by LTC */
 class QElocServer : public QTcpServer
@@ -238,6 +272,7 @@ private slots:
 	void readClient();
 	void clearClient();
 };
+
 /* Added by LTC */
 class myLabel : public QWidget
 {

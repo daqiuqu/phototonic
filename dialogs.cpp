@@ -36,17 +36,27 @@ int updateFlag = 0;
 int peoNum = 0;
 float xPos[10], yPos[10];
 
+QString clientList, targetClient, cameraOfRoom, targetCameraIP;
 QString room1_str, room2_str, room3_str, room4_str;
 QString room1_client_str, room2_client_str, room3_client_str, room4_client_str;
 
+#define DETECT_ROOM "0c:72:2c:88:52:1c"
 #define ROOM1_STR "00:0f:e2:78:cf:00"
 #define ROOM2_STR "00:0f:e2:78:cf:01"
 #define ROOM3_STR "00:0f:e2:78:cf:02"
 #define ROOM4_STR "00:0f:e2:78:cf:03"
 #define ROOM5_STR "00:0c:43:30:62:01"
 #define ROOM6_STR "d8:42:ac:41:55:1e"
-#define ROOM7_STR ""
+#define ROOM7_STR "0c:72:2c:88:52:1c"
 #define ROOM8_STR ""
+
+#define ROOM7_IP "211.87.235.173"
+#define ROOM8_IP "211.87.235.100"
+
+#define CLIENT_MAC1 "88:30:8a:3f:3f:a3"
+#define CLIENT_MAC2 "d4:22:3f:ad:53:53"
+#define CLIENT_MAC3 ""
+#define CLIENT_MAC4 ""
 
 CpMvDialog::CpMvDialog(QWidget *parent) : QDialog(parent)
 {
@@ -368,12 +378,45 @@ AutoDetectDialog::AutoDetectDialog(QWidget *parent) : QDialog(parent)
 	setWindowTitle(tr("AutoDetect"));
 
 //	保持比后面父窗口小，上下留出空间
-	int height = parent->size().height() - 50;
+	int height = parent->size().height();
 	if (height > 800)
 		height = 800;
 	resize(600, height);
+	targetCameraIP = "";
+	targetClient = "";
 
 	QHBoxLayout *timeRangeHbox = new QHBoxLayout;
+
+#if 0
+	QLabel *chooseRoomLabel = new QLabel(tr("Choose a room"));
+	chooseRoomLabel startTimeLabel->setMaximumWidth(50);
+	chooseRoomEdit = new QLineEdit;
+	chooseRoomEdit->setClearButtonEnabled(true);
+	chooseRoomEdit->setMinimumWidth(100);
+	chooseRoomEdit->setMaximumWidth(150);
+
+	QLabel *chooseTargetLabel = new QLabel(tr("Choose a target"));
+	chooseTargetLabel startTimeLabel->setMaximumWidth(50);
+	chooseTargetEdit = new QLineEdit;
+	chooseTargetEdit->setClearButtonEnabled(true);
+	chooseTargetEdit->setMinimumWidth(100);
+	chooseTargetEdit->setMaximumWidth(150);
+#endif
+	searchByRoomButton = new QRadioButton(tr("search by room"));
+	roomBox = new QComboBox(this);
+	roomBox->addItem(ROOM7_STR);
+	roomBox->addItem(ROOM8_STR);
+	QHBoxLayout *byRoomHbox = new QHBoxLayout;
+	byRoomHbox->addWidget(searchByRoomButton);
+	byRoomHbox->addWidget(roomBox);
+
+	searchByClientButton = new QRadioButton(tr("search by client"));
+	clientBox = new QComboBox(this);
+	clientBox->addItem(CLIENT_MAC1);
+	clientBox->addItem(CLIENT_MAC2);
+	QHBoxLayout *byClientHbox = new QHBoxLayout;
+	byClientHbox->addWidget(searchByClientButton);
+	byClientHbox->addWidget(clientBox);
 
 	QLabel *startTimeLabel = new QLabel(tr("start :"));
 	startTimeLabel->setMaximumWidth(50);
@@ -408,7 +451,8 @@ AutoDetectDialog::AutoDetectDialog(QWidget *parent) : QDialog(parent)
 	timeRangeHbox->addWidget(realTimeDetectButton);
 	timeRangeHbox->addWidget(stopDetectButton);
 
-	QLabel *eLocLabel = new QLabel(tr("E-signal Location:"));
+//	QLabel *eLocLabel = new QLabel(tr("E-signal Location:"));
+	QLabel *eLocLabel = new QLabel(tr("E-signal in the room:"));
 	eLocEdit = new QLineEdit;
 	eLocEdit->setClearButtonEnabled(true);
 	eLocEdit->setMinimumWidth(400);
@@ -440,10 +484,12 @@ AutoDetectDialog::AutoDetectDialog(QWidget *parent) : QDialog(parent)
 	myLabel *showImageLabel = new myLabel;
 
 	QVBoxLayout *mainVbox = new QVBoxLayout;
+	mainVbox->addLayout(byRoomHbox);
+	mainVbox->addLayout(byClientHbox);
 	mainVbox->addLayout(timeRangeHbox);
 	mainVbox->addLayout(eLocLayout);
 	mainVbox->addLayout(vLocLayout);
-	mainVbox->addLayout(comLocLayout);
+//	mainVbox->addLayout(comLocLayout);
 	mainVbox->addWidget(showImageLabel);
 	setLayout(mainVbox);
 }
@@ -487,6 +533,59 @@ void myLabel::drawPoint(float x, float y)
 }
 
 /* Added by LTC */
+QESigServer::QESigServer(QObject *parent)
+	: QTcpServer(parent)
+{
+}
+
+/* Added by LTC */
+QESigClient::QESigClient(QObject *parent)
+	: QTcpSocket(parent)
+{
+	connect(this, SIGNAL(readyRead()), this, SLOT(readClient()));
+	connect(this, SIGNAL(disconnected()), this, SLOT(clearClient()));
+}
+
+/* Added by LTC */
+void QESigClient::clearClient()
+{
+	clientList = "";
+	deleteLater();
+}
+
+/* Added by LTC */
+void QESigClient::readClient()
+{
+	QString str = "";
+	QTextStream in(this);
+//	in.setVersion(QDataStream::Qt_5_3);
+	in >> str;
+	QString str_router = str.mid(18, 17);
+	QString str_client = str.mid(1, 17);
+	if (targetClient != NULL && str_client == targetClient) {
+		if (str_router == ROOM7_STR)
+			targetCameraIP = ROOM7_IP;
+		if (str_router == ROOM8_STR)
+			targetCameraIP = ROOM8_IP;
+		cout << "set target camera IP ::: " << targetCameraIP.toStdString() << endl;
+	}
+	if (str_router == DETECT_ROOM && clientList.indexOf(str_client) < 0)
+		clientList += str_client + "; ";
+}
+
+/* Added by LTC */
+void QESigServer::incomingConnection(qintptr socketDescriptor)
+{
+	QESigClient *socket = new QESigClient(this);
+	if (!socket->setSocketDescriptor(socketDescriptor)) {
+		emit error(socket->error());
+		return;
+	}
+	if (!socket->waitForReadyRead(2000))
+		;
+}
+
+/* Added by LTC */
 QElocClient::QElocClient(QObject *parent)
 	: QTcpSocket(parent)
 {
@@ -494,6 +593,7 @@ QElocClient::QElocClient(QObject *parent)
 	connect(this, SIGNAL(disconnected()), this, SLOT(clearClient()));
 }
 
+/* Added by LTC */
 void QElocClient::clearClient()
 {
 	room1_client_str = room2_client_str = room3_client_str = room4_client_str = "";
@@ -855,13 +955,43 @@ cout << "socket recieve :" << (str.toStdString()) << endl;
 void AutoDetectDialog::realTimeDetect()
 {
 //	QTimer *snapshotTimer = new QTimer(this);
+	if (searchByRoomButton->isChecked()) {
+		QString str = roomBox->currentText();
+		targetCameraIP = str;
+	}
+	if (searchByClientButton->isChecked()) {
+		QString str = clientBox->currentText();
+		targetClient = str;
+		cout << "target client is :" << targetClient.toStdString() << endl;
+	}
+
 	snapshotTimer = new QTimer(this);
 	cout << "after new in realTimeDetect" << endl;
+	setupESigServer();
 	connect(snapshotTimer, SIGNAL(timeout()), this, SLOT(getSnapshot()));
+	connect(snapshotTimer, SIGNAL(timeout()), this, SLOT(getESignal()));
 	snapshotTimer->start(1000);
 	cout << "after timer start" << endl;
 //	realTimeDetectButton->setEnabled(false);
 //	cout << "after set button false" << endl;
+}
+
+/* added by LTC */
+void AutoDetectDialog::getESignal()
+{
+	eLocEdit->setText(clientList);
+//	clientList = "";
+} /* added by LTC */
+void AutoDetectDialog::setupESigServer()
+{
+	QESigServer *EServer = new QESigServer(this);
+//	connect(EServer, SIGNAL(readOver2()), this, SLOT(setClient()));
+	if (!EServer->listen(QHostAddress::Any, 9999)) {
+		QMessageBox::critical(this, tr("Eloc Server"),
+				tr("Unable To start the server: %d")
+				.arg(EServer->errorString()));
+		EServer->close();
+	}
 }
 
 /* added by LTC */
@@ -872,7 +1002,12 @@ void AutoDetectDialog::getSnapshot()
 	process = new QProcess(this);
 	connect(process, SIGNAL(readyReadStandardOutput()),
 			this, SLOT(outCheck()));
-	process->start("/home/daqiuqu/work/camera_test/a.out 211.87.235.173");
+//	process->start("/home/daqiuqu/work/camera_test/a.out 211.87.235.173");
+//	process->start("/home/ltc/work/camera_test/a.out 211.87.235.173");
+	cout << "target camera IP is : " << targetCameraIP.toStdString() << endl;
+	if (targetCameraIP == "")
+		targetCameraIP = "211.87.235.173";
+	process->start("/home/ltc/work/camera_test/a.out", QStringList() << targetCameraIP);
 	process->waitForFinished(200);
 	if (process) {
 		process->close();
@@ -910,7 +1045,8 @@ void AutoDetectDialog::autoDetect()
 
 	QDir dir;
 //	dir.setPath("/home/daqiuqu/work/camera_test");
-	dir.setPath("/home/daqiuqu/work/phototonic/snapshot");
+//	dir.setPath("/home/daqiuqu/work/phototonic/snapshot");
+	dir.setPath("/home/ltc/work/phototonic/snapshot");
 	dir.setFilter(QDir::Files | QDir::Hidden | QDir::NoSymLinks);
 	dir.setSorting(QDir::Size | QDir::Reversed);
 	QFileInfoList list = dir.entryInfoList();
@@ -966,7 +1102,8 @@ void AutoDetectDialog::imageDetect(string fileName)
 	float a[30], b[30];
 
 //	string dir("/home/daqiuqu/work/camera_test/");
-	string dir("/home/daqiuqu/work/phototonic/");
+//	string dir("/home/daqiuqu/work/phototonic/snapshot/");
+	string dir("/home/ltc/work/phototonic/snapshot/");
 	string fileNameFull = dir + fileName;
 
 	img = imread(fileNameFull);
