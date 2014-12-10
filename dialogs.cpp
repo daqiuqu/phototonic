@@ -47,11 +47,13 @@ QString room1_client_str, room2_client_str, room3_client_str, room4_client_str;
 #define ROOM4_STR "00:0f:e2:78:cf:03"
 #define ROOM5_STR "00:0c:43:30:62:01"
 #define ROOM6_STR "d8:42:ac:41:55:1e"
-#define ROOM7_STR "0c:72:2c:88:52:1c"
-#define ROOM8_STR ""
+//#define ROOM7_STR "0c:72:2c:88:52:1c"
+//#define ROOM8_STR ""
+#define ROOM7_STR "14:cf:92:90:37:68"
+#define ROOM8_STR "14:cf:92:90:39:be"
 
 #define ROOM7_IP "211.87.235.173"
-#define ROOM8_IP "211.87.235.100"
+#define ROOM8_IP "211.87.235.168"
 
 #define CLIENT_MAC1 "88:30:8a:3f:3f:a3"
 #define CLIENT_MAC2 "d4:22:3f:ad:53:53"
@@ -404,8 +406,8 @@ AutoDetectDialog::AutoDetectDialog(QWidget *parent) : QDialog(parent)
 #endif
 	searchByRoomButton = new QRadioButton(tr("search by room"));
 	roomBox = new QComboBox(this);
-	roomBox->addItem(ROOM7_STR);
-	roomBox->addItem(ROOM8_STR);
+	roomBox->addItem(ROOM7_IP);
+	roomBox->addItem(ROOM8_IP);
 	QHBoxLayout *byRoomHbox = new QHBoxLayout;
 	byRoomHbox->addWidget(searchByRoomButton);
 	byRoomHbox->addWidget(roomBox);
@@ -968,6 +970,9 @@ void AutoDetectDialog::realTimeDetect()
 	snapshotTimer = new QTimer(this);
 	cout << "after new in realTimeDetect" << endl;
 	setupESigServer();
+	process = new QProcess(this);
+	connect(process, SIGNAL(readyReadStandardOutput()),
+			this, SLOT(outCheck()));
 	connect(snapshotTimer, SIGNAL(timeout()), this, SLOT(getSnapshot()));
 	connect(snapshotTimer, SIGNAL(timeout()), this, SLOT(getESignal()));
 	snapshotTimer->start(1000);
@@ -999,21 +1004,14 @@ void AutoDetectDialog::getSnapshot()
 {
 	cout << "before start exec.sh." << endl;
 //	QProcess *process = new QProcess;
-	process = new QProcess(this);
-	connect(process, SIGNAL(readyReadStandardOutput()),
-			this, SLOT(outCheck()));
 //	process->start("/home/daqiuqu/work/camera_test/a.out 211.87.235.173");
-//	process->start("/home/ltc/work/camera_test/a.out 211.87.235.173");
-	cout << "target camera IP is : " << targetCameraIP.toStdString() << endl;
 	if (targetCameraIP == "")
 		targetCameraIP = "211.87.235.173";
-	process->start("/home/ltc/work/camera_test/a.out", QStringList() << targetCameraIP);
-	process->waitForFinished(200);
-	if (process) {
-		process->close();
-		delete process;
-		process = 0;
-	}
+	cout << "target camera IP is : " << targetCameraIP.toStdString() << endl;
+//	process->start("/home/ltc/work/camera_test/a.out", QStringList() << targetCameraIP);
+	process->start("/home/daqiuqu/work/camera_test/a.out", QStringList() << targetCameraIP);
+//	process->start("/home/daqiuqu/work/camera_test/a.out 211.87.235.173");
+//	process->waitForFinished(400);
 	cout << "after start exec.sh." << endl;
 }
 
@@ -1021,14 +1019,21 @@ void AutoDetectDialog::getSnapshot()
 void AutoDetectDialog::outCheck()
 {
 	QString output = process->readAllStandardOutput();
-	cout << output.toStdString() << endl;
-	imageDetect(output.toStdString());
+	cout << "output is :" << output.toStdString() << endl;
+	string name = output.toStdString();
+	imageDetect(name);
 }
 
 /* added by LTC */
 void AutoDetectDialog::stopDetect()
 {
 	snapshotTimer->stop();
+	if (process) {
+		process->close();
+		delete process;
+		process = 0;
+	cout << "process closed " << endl;
+	}
 }
 
 /* added by LTC */
@@ -1045,8 +1050,8 @@ void AutoDetectDialog::autoDetect()
 
 	QDir dir;
 //	dir.setPath("/home/daqiuqu/work/camera_test");
-//	dir.setPath("/home/daqiuqu/work/phototonic/snapshot");
-	dir.setPath("/home/ltc/work/phototonic/snapshot");
+	dir.setPath("/home/daqiuqu/work/phototonic/snapshot");
+//	dir.setPath("/home/ltc/work/phototonic/snapshot");
 	dir.setFilter(QDir::Files | QDir::Hidden | QDir::NoSymLinks);
 	dir.setSorting(QDir::Size | QDir::Reversed);
 	QFileInfoList list = dir.entryInfoList();
@@ -1100,14 +1105,17 @@ void AutoDetectDialog::imageDetect(string fileName)
 	FILE* f = 0;
 	char _filename[1024];
 	float a[30], b[30];
+//cout << " fila Name is :" << fileName << endl;
 
 //	string dir("/home/daqiuqu/work/camera_test/");
-//	string dir("/home/daqiuqu/work/phototonic/snapshot/");
-	string dir("/home/ltc/work/phototonic/snapshot/");
+	string dir("/home/daqiuqu/work/phototonic/snapshot/");
+//	string dir("./snapshot/");
+//	string dir("/home/ltc/work/phototonic/snapshot/");
 	string fileNameFull = dir + fileName;
 
 	img = imread(fileNameFull);
-//cout << "fileNameFull is " << fileNameFull << endl;
+cout << "fileNameFull is " << fileNameFull << endl;
+cout << "fileName is " << fileName << endl;
         strcpy(_filename, fileNameFull.c_str());
 
 	HOGDescriptor hog;
@@ -1118,7 +1126,7 @@ void AutoDetectDialog::imageDetect(string fileName)
 	{
 		vLocEdit->setText(tr(""));
 		char* filename = _filename;
-		printf("LTC print filename %s: in %s\n", filename, __func__);
+		//printf("LTC print filename %s: in %s\n", filename, __func__);
 		if(!img.data)
 		    continue;
 		
@@ -1166,6 +1174,7 @@ printf("LTC print before coordinate transformation\n");
 			updateFlag = 0;
 //		imwrite("/home/daqiuqu/peoDtt.jpg", img);
 		imshow("people detector", img);
+		printf("444\n");
 //		int c = waitKey(0) & 255;
 		int c = waitKey(1000) & 255;
 		if (c == 'p')
@@ -1183,7 +1192,7 @@ printf("LTC print before coordinate transformation\n");
 //	    		fclose(f);
 //			return;
 //		}
-	}	
+	}
 //	if(f)
 //	    fclose(f);
 }
